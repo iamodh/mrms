@@ -57,18 +57,18 @@ bundle exec rails runner "puts 'OK'"
 
 **목표:** Rails 8 프로젝트 생성 및 기본 설정
 
-- [ ] Rails 프로젝트 생성 (`rails new mrms -d sqlite3`)
-- [ ] RuboCop 설정 (.rubocop.yml)
-- [ ] 보안 gem 추가 (brakeman, bundler-audit - development group)
-- [ ] dotenv-rails 추가 및 .env 설정
-- [ ] .gitignore 업데이트 (.env 추가)
-- [ ] `rails runner "puts 'OK'"` 통과 확인
+- [x] Rails 프로젝트 생성 (`rails new mrms -d sqlite3`)
+- [x] RuboCop 설정 (.rubocop.yml)
+- [x] 보안 gem 추가 (brakeman, bundler-audit - development group)
+- [x] dotenv-rails 추가 및 .env 설정
+- [x] .gitignore 업데이트 (.env 추가)
+- [x] `rails runner "puts 'OK'"` 통과 확인
 
 > **Note:** Rails 8은 SQLite에서 WAL 모드 + IMMEDIATE 트랜잭션이 기본 적용됨. 1000명 규모에서 충분.
 
 **완료 조건:** `rubocop` 경고 없음, 앱 정상 로드
 
-- Commits:
+- Commits: 9237578
 
 ---
 
