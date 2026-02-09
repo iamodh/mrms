@@ -80,7 +80,7 @@ bundle exec rails runner "puts 'OK'"
 
 - [x] Race 테이블 생성
 - [x] Course 테이블 생성
-- [ ] Registration 테이블 생성
+- [x] Registration 테이블 생성
 - [ ] Unique Index: `(race_id, name, phone_number)`
 - [ ] Unique Index: `confirmation_code`
 - [ ] Seed: Race 1개, Course 4개
