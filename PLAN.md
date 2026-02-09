@@ -14,8 +14,8 @@
 
 ### `commit` - 완료 처리
 
-1. **Commit**: 변경사항을 커밋한다
-2. **Update PLAN.md**: 완료된 항목에 체크박스 표시
+1. **Update PLAN.md**: 완료된 항목에 체크박스 표시
+2. **Commit**: PLAN.md 변경을 포함하여 커밋한다
 
 ### 명령어
 
@@ -79,7 +79,7 @@ bundle exec rails runner "puts 'OK'"
 > 📖 TECHSPEC 섹션 6 참조
 
 - [x] Race 테이블 생성
-- [ ] Course 테이블 생성
+- [x] Course 테이블 생성
 - [ ] Registration 테이블 생성
 - [ ] Unique Index: `(race_id, name, phone_number)`
 - [ ] Unique Index: `confirmation_code`
