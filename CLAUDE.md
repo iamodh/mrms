@@ -63,7 +63,8 @@ end
 
 ### 🟡 M2: 스모크 테스트
 
-**마일스톤 2 (스키마 & 시드)** 단계에서는 모델이 기본적으로 생성되는지만 확인:
+**마일스톤 2 (스키마 & 시드)** 단계에서는 모델이 기본적으로 생성되는지만 확인.
+각 모델의 컬럼과 타입은 **TECHSPEC.md § 6 데이터베이스 스키마**를 참고하여 작성:
 ```ruby
 # test/models/race_test.rb
 class RaceTest < ActiveSupport::TestCase

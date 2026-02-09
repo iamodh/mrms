@@ -78,7 +78,7 @@ bundle exec rails runner "puts 'OK'"
 
 > 📖 TECHSPEC 섹션 6 참조
 
-- [ ] Race 테이블 생성
+- [x] Race 테이블 생성
 - [ ] Course 테이블 생성
 - [ ] Registration 테이블 생성
 - [ ] Unique Index: `(race_id, name, phone_number)`

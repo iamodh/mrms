@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_09_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_02_09_000002) do
+  create_table "courses", force: :cascade do |t|
+    t.integer "capacity", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.integer "fee", null: false
+    t.string "name", null: false
+    t.integer "race_id", null: false
+    t.time "start_time", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_courses_on_race_id"
+  end
+
   create_table "races", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "event_date", null: false
@@ -19,4 +30,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_000001) do
     t.datetime "registration_deadline", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "courses", "races"
 end
