@@ -61,6 +61,11 @@
 - Fixture 로드가 모델 생성을 암묵적으로 검증하므로, M2 스모크 테스트는 삭제한다
 - 기존 모델 테스트를 Fixture 기반으로 리팩토링한다
 
+### Seed / Fixture에서의 Association
+
+- Association 선언(has_many, belongs_to)은 M3 범위이므로, M2 Seed에서는 association 메서드(`race.courses`) 대신 FK 직접 참조(`race_id: race.id`)를 사용한다
+- M3 완료 후 Seed를 association 방식으로 리팩토링할 수 있다
+
 ### 작성하지 않는 테스트
 
 - 스키마 레벨 테스트 (컬럼 타입, 존재 여부) — 마이그레이션이 명세서 역할

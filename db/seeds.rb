@@ -1,9 +1,20 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+race = Race.find_or_create_by!(name: "서울마라톤 2026") do |r|
+  r.event_date = DateTime.new(2026, 4, 12, 8, 0, 0)
+  r.location = "서울 여의도공원"
+  r.registration_deadline = DateTime.new(2026, 3, 31, 23, 59, 59)
+end
+
+[
+  { name: "5km", capacity: 200, fee: 20_000, start_time: "09:00" },
+  { name: "10km", capacity: 300, fee: 30_000, start_time: "08:30" },
+  { name: "하프", capacity: 200, fee: 50_000, start_time: "08:00" },
+  { name: "풀코스", capacity: 0, fee: 70_000, start_time: "07:30" }
+].each do |attrs|
+  Course.find_or_create_by!(race_id: race.id, name: attrs[:name]) do |c|
+    c.capacity = attrs[:capacity]
+    c.fee = attrs[:fee]
+    c.start_time = Time.parse(attrs[:start_time])
+  end
+end
+
+puts "Seed complete: Race #{race.id}, #{Course.where(race_id: race.id).count} courses"
