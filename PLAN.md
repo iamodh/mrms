@@ -82,7 +82,7 @@ bundle exec rails runner "puts 'OK'"
 - [x] Course 테이블 생성
 - [x] Registration 테이블 생성
 - [x] Unique Index: `(race_id, name, phone_number)`
-- [ ] Unique Index: `confirmation_code`
+- [x] Unique Index: `confirmation_code`
 - [ ] Seed: Race 1개, Course 4개
 
 **완료 조건:** `rails db:migrate db:seed` 성공, 스키마 확인
