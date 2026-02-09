@@ -97,6 +97,11 @@ bundle exec rails runner "puts 'OK'"
 
 > 📖 TECHSPEC 섹션 6.1 참조
 
+**Fixture 도입**
+
+- [ ] Fixture 생성 (races, courses, registrations)
+- [ ] M2 스모크 테스트 삭제 및 Fixture 기반으로 전환
+
 **Tests**
 
 - [ ] Race has_many :courses, :registrations

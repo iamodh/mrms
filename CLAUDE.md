@@ -55,6 +55,12 @@
 | M3 | Validations + Associations | 검증 로직, 관계 동작 확인 |
 | M4+ | Business Logic | 모델 메서드 추가 시 작성 |
 
+### M3 전환 시 Fixture 도입
+
+- M3 첫 작업으로 Fixture(`test/fixtures/*.yml`)를 생성한다
+- Fixture 로드가 모델 생성을 암묵적으로 검증하므로, M2 스모크 테스트는 삭제한다
+- 기존 모델 테스트를 Fixture 기반으로 리팩토링한다
+
 ### 작성하지 않는 테스트
 
 - 스키마 레벨 테스트 (컬럼 타입, 존재 여부) — 마이그레이션이 명세서 역할
