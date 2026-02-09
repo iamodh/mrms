@@ -871,3 +871,93 @@ end
 | 단위/통합 테스트 | Minitest (Rails 기본)                           |
 | 동시성 테스트    | `Thread` + `ActiveRecord::Base.connection_pool` |
 | 픽스처 데이터    | Fixtures 또는 FactoryBot                        |
+
+### 8.4 테스트 코드 예제
+
+#### ❌ BAD — 스키마 레벨 테스트 (작성 금지)
+
+```ruby
+# 🚫 마이그레이션이 이미 명세서 역할, rails db:migrate 실패 시 테스트 전에 터짐
+test "name column is string type" do
+  assert_equal :string, Race.columns_hash["name"].type
+end
+
+test "races table has expected columns" do
+  columns = Race.column_names
+  assert_includes columns, "name"
+  assert_includes columns, "event_date"
+end
+```
+
+#### 🟡 M2: 스모크 테스트
+
+모델이 기본적으로 생성되는지만 확인. 컬럼과 타입은 **§ 6 데이터베이스 스키마** 참조:
+
+```ruby
+# test/models/race_test.rb
+class RaceTest < ActiveSupport::TestCase
+  test "race can be created" do
+    race = Race.create!(
+      name: "Test Race",
+      event_date: 1.month.from_now,
+      location: "Seoul",
+      registration_deadline: 2.weeks.from_now
+    )
+    assert race.persisted?
+  end
+end
+```
+
+M3에서 validations 추가 시 자연스럽게 대체됨.
+
+#### ✅ M3+: Validations
+
+```ruby
+test "requires name" do
+  race = Race.new(event_date: 1.month.from_now)
+  assert_not race.valid?
+  assert_includes race.errors[:name], "can't be blank"
+end
+
+test "enforces uniqueness of confirmation_code" do
+  existing = registrations(:john_5k)
+  duplicate = Registration.new(
+    confirmation_code: existing.confirmation_code,
+    race: races(:marathon_2024),
+    name: "Another Person",
+    phone_number: "01099999999"
+  )
+  assert_not duplicate.valid?
+  assert_includes duplicate.errors[:confirmation_code], "has already been taken"
+end
+```
+
+#### ✅ M3+: Associations
+
+```ruby
+test "race has many courses" do
+  race = races(:marathon_2024)
+  assert_equal 4, race.courses.count
+end
+
+test "destroys associated courses when destroyed" do
+  race = races(:marathon_2024)
+  course_ids = race.courses.pluck(:id)
+  race.destroy
+  assert_empty Course.where(id: course_ids)
+end
+```
+
+#### ✅ M4+: Business Logic
+
+```ruby
+test "registration_open? returns false after deadline" do
+  race = Race.new(registration_deadline: 1.day.ago)
+  assert_not race.registration_open?
+end
+
+test "full? returns true when capacity reached" do
+  course = courses(:full_10k)
+  assert course.full?
+end
+```
