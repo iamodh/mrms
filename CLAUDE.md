@@ -55,11 +55,18 @@
 | M3 | Validations + Associations | 검증 로직, 관계 동작 확인 |
 | M4+ | Business Logic | 모델 메서드 추가 시 작성 |
 
-### M3 전환 시 Fixture 도입
+### M3 전환 작업 순서
 
-- M3 첫 작업으로 Fixture(`test/fixtures/*.yml`)를 생성한다
-- Fixture 로드가 모델 생성을 암묵적으로 검증하므로, M2 스모크 테스트는 삭제한다
-- 기존 모델 테스트를 Fixture 기반으로 리팩토링한다
+1. **Fixture 생성** — `test/fixtures/*.yml` (races, courses, registrations)
+2. **Association 선언** — 모델에 `has_many`, `belongs_to` 선언
+3. **스모크 테스트 삭제 → Association 테스트 작성** — Fixture 로드가 모델 생성을 암묵적으로 검증하므로 M2 스모크 테스트는 삭제하고, Association 테스트로 대체
+4. **Validation** — Red → Green TDD 사이클로 필수 필드 검증 추가
+
+### Fixture 작성 규칙
+
+- 날짜/시간 필드는 ERB로 상대 시점을 사용한다 (예: `<%= 3.months.from_now %>`) — 시간이 지나도 테스트가 깨지지 않도록
+- 스키마에 default가 있는 컬럼은 fixture에서 생략한다 (예: `status: "applied"`)
+- TECHSPEC에 정의된 데이터 형식을 반드시 확인 후 작성한다
 
 ### Seed / Fixture에서의 Association
 
@@ -74,7 +81,7 @@
 
 ## CONSTRAINTS
 
-- [ ] 테스트 없이 프로덕션 코드 작성 금지
+- [ ] 테스트 없이 프로덕션 코드 작성 금지 (단, Association 선언은 선언적 코드이므로 예외)
 - [ ] 한 번에 여러 기능 구현 금지
 - [ ] TECHSPEC.md에 명시되지 않은 기술 스택 도입 금지
 - [ ] 테스트 통과 전 리팩토링 금지

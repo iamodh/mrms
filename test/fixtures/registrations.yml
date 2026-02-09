@@ -1,0 +1,9 @@
+hong_5km:
+  race: marathon_2026
+  course: five_km
+  name: "홍길동"
+  birth_date: "1990-01-01"
+  gender: "male"
+  phone_number: "01012345678"
+  address: "서울시 강남구"
+  confirmation_code: "A1B2C3D4"

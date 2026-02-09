@@ -99,14 +99,14 @@ bundle exec rails runner "puts 'OK'"
 
 **Fixture 도입**
 
-- [ ] Fixture 생성 (races, courses, registrations)
-- [ ] M2 스모크 테스트 삭제 및 Fixture 기반으로 전환
+- [x] Fixture 생성 (races, courses, registrations)
+- [x] M2 스모크 테스트 삭제 및 Fixture 기반으로 전환
 
 **Tests**
 
-- [ ] Race has_many :courses, :registrations
-- [ ] Course belongs_to :race, has_many :registrations
-- [ ] Registration belongs_to :race, :course
+- [x] Race has_many :courses, :registrations
+- [x] Course belongs_to :race, has_many :registrations
+- [x] Registration belongs_to :race, :course
 - [ ] Registration 필수 필드 검증 (name, phone_number, birth_date)
 
 **완료 조건:** 모든 유닛 테스트 통과
