@@ -1,0 +1,5 @@
+marathon_2026:
+  name: "서울마라톤 2026"
+  event_date: <%= 3.months.from_now %>
+  location: "서울 여의도공원"
+  registration_deadline: <%= 2.months.from_now %>

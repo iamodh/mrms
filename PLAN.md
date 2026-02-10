@@ -17,6 +17,21 @@
 1. **Update PLAN.md**: 완료된 항목에 체크박스 표시
 2. **Commit**: PLAN.md 변경을 포함하여 커밋한다
 
+### `verify` - 마일스톤 완료 후 수동 검증
+
+마일스톤 완료 시 사용자가 직접 확인할 수 있는 검증 명령어를 제안한다.
+
+**제안 범위:**
+- `rails console`에서 실행할 수 있는 코드 스니펫 (모델 관계, 검증, 비즈니스 로직)
+- `rails dbconsole`에서 확인할 수 있는 스키마/데이터 쿼리
+- 브라우저에서 확인할 수 있는 URL과 기대 동작 (UI 마일스톤인 경우)
+- `bundle exec rubocop`, `bundle exec rails test` 등 CLI 명령어
+
+**규칙:**
+- `commit` 직전 또는 직후에 제안
+- 해당 마일스톤에서 구현한 기능에 한정 (이전 마일스톤 내용 반복 금지)
+- 복사-붙여넣기로 바로 실행 가능한 형태로 제공
+
 ### 명령어
 
 | 명령어     | 동작                                 |
@@ -24,6 +39,7 @@
 | `go`       | 구현 사이클 실행 후 사용자 확인 대기 |
 | `commit`   | 커밋 및 PLAN.md 체크박스 표시        |
 | `status`   | 현재 진행 상황 보고                  |
+| `verify`   | 마일스톤 완료 후 수동 검증 제안      |
 | `refactor` | 테스트 통과 후 리팩토링 제안         |
 
 ### 필수 실행 명령어
@@ -99,15 +115,15 @@ bundle exec rails runner "puts 'OK'"
 
 **Fixture 도입**
 
-- [ ] Fixture 생성 (races, courses, registrations)
-- [ ] M2 스모크 테스트 삭제 및 Fixture 기반으로 전환
+- [x] Fixture 생성 (races, courses, registrations)
+- [x] M2 스모크 테스트 삭제 및 Fixture 기반으로 전환
 
 **Tests**
 
-- [ ] Race has_many :courses, :registrations
-- [ ] Course belongs_to :race, has_many :registrations
-- [ ] Registration belongs_to :race, :course
-- [ ] Registration 필수 필드 검증 (name, phone_number, birth_date)
+- [x] Race has_many :courses, :registrations
+- [x] Course belongs_to :race, has_many :registrations
+- [x] Registration belongs_to :race, :course
+- [x] Registration 필수 필드 검증 (name, phone_number, birth_date, gender, address)
 
 **완료 조건:** 모든 유닛 테스트 통과
 

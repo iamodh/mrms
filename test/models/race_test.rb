@@ -1,13 +1,14 @@
 require "test_helper"
 
 class RaceTest < ActiveSupport::TestCase
-  test "race can be created" do
-    race = Race.create!(
-      name: "Test Race",
-      event_date: 1.month.from_now,
-      location: "Seoul",
-      registration_deadline: 2.weeks.from_now
-    )
-    assert race.persisted?
+  test "has many courses" do
+    race = races(:marathon_2026)
+    assert_includes race.courses, courses(:five_km)
+    assert_includes race.courses, courses(:ten_km)
+  end
+
+  test "has many registrations" do
+    race = races(:marathon_2026)
+    assert_includes race.registrations, registrations(:hong_5km)
   end
 end
