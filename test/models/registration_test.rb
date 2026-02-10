@@ -11,14 +11,16 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_equal courses(:five_km), registration.course
   end
 
-  test "requires name, phone_number, and birth_date" do
+  test "requires name, phone_number, birth_date, and gender" do
     registration = registrations(:hong_5km)
     registration.name = nil
     registration.phone_number = nil
     registration.birth_date = nil
+    registration.gender = nil
     assert_not registration.valid?
     assert_includes registration.errors[:name], "can't be blank"
     assert_includes registration.errors[:phone_number], "can't be blank"
     assert_includes registration.errors[:birth_date], "can't be blank"
+    assert_includes registration.errors[:gender], "can't be blank"
   end
 end
