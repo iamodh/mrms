@@ -123,7 +123,7 @@ bundle exec rails runner "puts 'OK'"
 - [x] Race has_many :courses, :registrations
 - [x] Course belongs_to :race, has_many :registrations
 - [x] Registration belongs_to :race, :course
-- [x] Registration 필수 필드 검증 (name, phone_number, birth_date, gender)
+- [x] Registration 필수 필드 검증 (name, phone_number, birth_date, gender, address)
 
 **완료 조건:** 모든 유닛 테스트 통과
 
