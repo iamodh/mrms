@@ -15,4 +15,4 @@
   | Linter | RuboCop | - |
 
   ## AI Workflow
-  <img width="8192" height="2203" alt="Marathon Application-2026-02-11-062619" src="https://github.com/user-attachments/assets/43aa9ee6-0779-4b20-b33e-e6bf99bab5c9" />
+<img width="8192" height="2850" alt="Marathon Application-2026-02-11-063615" src="https://github.com/user-attachments/assets/04250713-7a55-45fc-81ea-ca8fc92a2a39" />
