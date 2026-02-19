@@ -526,21 +526,12 @@ Course 1 ──< Registration
 
 ### 7.1 데이터 정규화 (Registration)
 
-저장 전 `before_validation` 콜백에서 처리:
+`normalizes` 선언으로 처리:
 
 ```ruby
 class Registration < ApplicationRecord
-  before_validation :normalize_name, :normalize_phone_number
-
-  private
-
-  def normalize_name
-    self.name = name.gsub(/\s+/, '') if name.present?
-  end
-
-  def normalize_phone_number
-    self.phone_number = phone_number.gsub(/\D/, '') if phone_number.present?
-  end
+  normalizes :name, with: ->(name) { name.gsub(/\s+/, "") }
+  normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 end
 ```
 

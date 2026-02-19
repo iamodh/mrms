@@ -11,6 +11,18 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_equal courses(:five_km), registration.course
   end
 
+  test "normalizes name by removing spaces" do
+    registration = registrations(:hong_5km)
+    registration.name = "홍 길 동"
+    assert_equal "홍길동", registration.name
+  end
+
+  test "normalizes phone_number by removing non-digits" do
+    registration = registrations(:hong_5km)
+    registration.phone_number = "010-1234-5678"
+    assert_equal "01012345678", registration.phone_number
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil
