@@ -10,4 +10,9 @@ class CourseTest < ActiveSupport::TestCase
     course = courses(:five_km)
     assert_includes course.registrations, registrations(:hong_5km)
   end
+
+  test "remaining_slots returns capacity minus applied registrations" do
+    course = courses(:five_km)
+    assert_equal course.capacity - 1, course.remaining_slots
+  end
 end

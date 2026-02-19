@@ -48,8 +48,9 @@
     - Rails 생태계에서 단일 id PK가 컨벤션이며, 복합 PK는 라우팅/association/유지보수에 마찰을 만든다
     - Unique Index는 동시 요청에서도 DB가 최종적으로 중복을 차단한다
   - name/phone_number 정규화 (저장 전 처리)
-    - name: 모든 공백 제거 ("홍 길 동" → "홍길동")
-    - phone: 숫자만 추출 ("010-1234-5678" → "01012345678")
+    - name: 모든 공백 제거 ("홍 길 동" → "홍길동"), 최대 10글자
+    - address: 최대 30글자
+    - phone: 숫자만 추출 ("010-1234-5678" → "01012345678"), 최대 11자리
     - 이유: "홍길동" vs "홍 길동", "010-1234-5678" vs "01012345678" 등 동일인 우회 방지
     - 적용 위치: 모델 콜백(before_validation)에서 일괄 처리
 - 정원 초과 신청 방지 (동시성 대응)
@@ -526,21 +527,12 @@ Course 1 ──< Registration
 
 ### 7.1 데이터 정규화 (Registration)
 
-저장 전 `before_validation` 콜백에서 처리:
+`normalizes` 선언으로 처리:
 
 ```ruby
 class Registration < ApplicationRecord
-  before_validation :normalize_name, :normalize_phone_number
-
-  private
-
-  def normalize_name
-    self.name = name.gsub(/\s+/, '') if name.present?
-  end
-
-  def normalize_phone_number
-    self.phone_number = phone_number.gsub(/\D/, '') if phone_number.present?
-  end
+  normalizes :name, with: ->(name) { name.gsub(/\s+/, "") }
+  normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 end
 ```
 

@@ -11,6 +11,39 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_equal courses(:five_km), registration.course
   end
 
+  test "normalizes name by removing spaces" do
+    registration = registrations(:hong_5km)
+    registration.name = "홍 길 동"
+    assert_equal "홍길동", registration.name
+  end
+
+  test "normalizes phone_number by removing non-digits" do
+    registration = registrations(:hong_5km)
+    registration.phone_number = "010-1234-5678"
+    assert_equal "01012345678", registration.phone_number
+  end
+
+  test "rejects name longer than 10 characters" do
+    registration = registrations(:hong_5km)
+    registration.name = "가" * 11
+    assert_not registration.valid?
+    assert_includes registration.errors[:name], "is too long (maximum is 10 characters)"
+  end
+
+  test "rejects phone_number longer than 11 digits" do
+    registration = registrations(:hong_5km)
+    registration.phone_number = "0" * 12
+    assert_not registration.valid?
+    assert_includes registration.errors[:phone_number], "is too long (maximum is 11 characters)"
+  end
+
+  test "rejects address longer than 30 characters" do
+    registration = registrations(:hong_5km)
+    registration.address = "가" * 31
+    assert_not registration.valid?
+    assert_includes registration.errors[:address], "is too long (maximum is 30 characters)"
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil
