@@ -1,5 +1,15 @@
 <h1><%= @course.name %> 신청</h1>
 
+<% if @registration.errors.any? %>
+  <div class="field-errors">
+    <ul>
+      <% @registration.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: @registration, url: course_registrations_path(@course) do |f| %>
   <div>
     <%= f.label :name, "이름" %>

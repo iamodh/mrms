@@ -145,7 +145,7 @@ bundle exec rails runner "puts 'OK'"
 **Integration Tests**
 
 - [x] 신청 폼 표시 (available 코스만, 잔여 인원 표시)
-- [ ] 필수 필드 누락 제출 시 폼 상태 유지 + 입력값 보존
+- [x] 필수 필드 누락 제출 시 폼 상태 유지 + 입력값 보존
 
 **완료 조건:** 신청 폼 동작, 정규화 적용, 에러 시 입력값 보존
 

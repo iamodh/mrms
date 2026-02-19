@@ -39,4 +39,19 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_select "select[name='registration[gender]']"
     assert_select "textarea[name='registration[address]']"
   end
+
+  test "submitting with missing fields re-renders form with validation errors and preserves input" do
+    course = courses(:five_km)
+    kept_name = "김철수"
+
+    assert_no_difference "Registration.count" do
+      post course_registrations_path(course), params: {
+        registration: { name: kept_name, phone_number: "", birth_date: "", gender: "", address: "" }
+      }
+    end
+
+    assert_response :unprocessable_entity
+    assert_select "input[name='registration[name]'][value=?]", kept_name
+    assert_select ".field-errors"
+  end
 end

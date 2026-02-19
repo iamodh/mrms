@@ -2,10 +2,18 @@ class Registration < ApplicationRecord
   belongs_to :race
   belongs_to :course
 
+  before_validation :set_race_from_course
+
   enum :gender, { male: "male", female: "female" }
 
   normalizes :name, with: ->(name) { name.gsub(/\s+/, "") }
   normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 
   validates :name, :phone_number, :birth_date, :gender, :address, presence: true
+
+  private
+
+  def set_race_from_course
+    self.race = course.race if course.present? && race.blank?
+  end
 end
