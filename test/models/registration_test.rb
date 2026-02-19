@@ -23,6 +23,13 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_equal "01012345678", registration.phone_number
   end
 
+  test "rejects name longer than 10 characters" do
+    registration = registrations(:hong_5km)
+    registration.name = "가" * 11
+    assert_not registration.valid?
+    assert_includes registration.errors[:name], "is too long (maximum is 10 characters)"
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil

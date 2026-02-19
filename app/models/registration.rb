@@ -9,7 +9,8 @@ class Registration < ApplicationRecord
   normalizes :name, with: ->(name) { name.gsub(/\s+/, "") }
   normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 
-  validates :name, :phone_number, :birth_date, :gender, :address, presence: true
+  validates :name, presence: true, length: { maximum: 10 }
+  validates :phone_number, :birth_date, :gender, :address, presence: true
 
   private
 
