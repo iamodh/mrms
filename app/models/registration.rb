@@ -10,7 +10,8 @@ class Registration < ApplicationRecord
   normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 
   validates :name, presence: true, length: { maximum: 10 }
-  validates :phone_number, :birth_date, :gender, :address, presence: true
+  validates :phone_number, :birth_date, :gender, presence: true
+  validates :address, presence: true, length: { maximum: 30 }
 
   private
 

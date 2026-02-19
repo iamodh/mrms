@@ -30,6 +30,13 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_includes registration.errors[:name], "is too long (maximum is 10 characters)"
   end
 
+  test "rejects address longer than 30 characters" do
+    registration = registrations(:hong_5km)
+    registration.address = "가" * 31
+    assert_not registration.valid?
+    assert_includes registration.errors[:address], "is too long (maximum is 30 characters)"
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil
