@@ -13,7 +13,7 @@
 <%= form_with model: @registration, url: course_registrations_path(@course) do |f| %>
   <div>
     <%= f.label :name, "이름" %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, maxlength: 10 %>
   </div>
 
   <div>
