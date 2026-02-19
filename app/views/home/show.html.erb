@@ -1,0 +1,11 @@
+<h1><%= @race.name %></h1>
+
+<div class="courses">
+  <% @courses.each do |course| %>
+    <div data-course-id="<%= course.id %>">
+      <h2><%= course.name %></h2>
+      <p class="remaining-slots">잔여: <%= course.remaining_slots %>명</p>
+      <%= link_to "신청하기", new_course_registration_path(course) %>
+    </div>
+  <% end %>
+</div>

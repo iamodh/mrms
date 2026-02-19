@@ -1,0 +1,32 @@
+<h1><%= @course.name %> 신청</h1>
+
+<%= form_with model: @registration, url: course_registrations_path(@course) do |f| %>
+  <div>
+    <%= f.label :name, "이름" %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :phone_number, "전화번호" %>
+    <%= f.text_field :phone_number %>
+  </div>
+
+  <div>
+    <%= f.label :birth_date, "생년월일" %>
+    <%= f.date_field :birth_date %>
+  </div>
+
+  <div>
+    <%= f.label :gender, "성별" %>
+    <%= f.select :gender, [["남성", "male"], ["여성", "female"]], prompt: "선택해주세요" %>
+  </div>
+
+  <div>
+    <%= f.label :address, "주소" %>
+    <%= f.text_area :address %>
+  </div>
+
+  <div>
+    <%= f.submit "신청하기" %>
+  </div>
+<% end %>
