@@ -137,3 +137,4 @@ TECHSPEC 코드 패턴을 **정확히** 따를 것.
 - **네이밍:** snake_case (Ruby)
 - **커밋 메시지:** Conventional Commits 형식
 - **문자열:** 더블쿼트 우선 (rubocop-rails-omakase 기본)
+- **Skinny Controller, Fat Model:** 비즈니스 로직과 쿼리는 모델(scope, 메서드)에 두고, 컨트롤러는 요청/응답 흐름만 담당
