@@ -415,6 +415,7 @@ bundle exec rails runner "puts 'OK'"
 
 | #   | 마일스톤 | 내용 | 상태 |
 | --- | -------- | ---- | ---- |
-| 1   | M5, M6   | 동시성 테스트: `ActionDispatch::IntegrationTest`의 `post`는 `@response` 등 인스턴스 변수를 공유하여 thread-safe하지 않음. 모델 레벨에서 `Thread` + `ActiveRecord::Base.connection_pool.checkout`으로 별도 커넥션을 확보하여 테스트한다 (TECHSPEC § 8.3 참조) | 적용 |
+| 1   | M5, M6   | 동시성 테스트: `ActionDispatch::IntegrationTest`의 `post`는 `@response` 등 인스턴스 변수를 공유하여 thread-safe하지 않음. 모델 레벨에서 `Thread` + `ActiveRecord::Base.connection_pool.with_connection`으로 별도 커넥션을 확보하여 테스트한다 (TECHSPEC § 8.3 참조) | 적용 |
+| 2   | M5       | `save` vs `create!`: 컨트롤러에서 `create_registration!`(`create!` 사용)로 전환 시, 예외 발생하면 `@registration`에 할당이 안 되어 뷰 렌더링 실패. `rescue ActiveRecord::RecordInvalid => e`에서 `e.record`로 실패한 객체를 꺼내 `@registration`에 할당하여 해결 | 적용 |
 
 ---
