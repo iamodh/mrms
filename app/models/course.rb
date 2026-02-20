@@ -9,4 +9,8 @@ class Course < ApplicationRecord
   def full?
     remaining_slots <= 0
   end
+
+  def available?
+    !full? && race.registration_deadline > Time.current
+  end
 end

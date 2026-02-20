@@ -25,3 +25,10 @@ full:
   capacity: 0
   fee: 70000
   start_time: "07:30:00"
+
+closed_five_km:
+  race: closed_race
+  name: "5km"
+  capacity: 200
+  fee: 20000
+  start_time: "09:00:00"

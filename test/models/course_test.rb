@@ -25,4 +25,19 @@ class CourseTest < ActiveSupport::TestCase
     course = courses(:five_km)
     assert_not course.full?
   end
+
+  test "available? returns true when not full and before deadline" do
+    course = courses(:five_km)
+    assert course.available?
+  end
+
+  test "available? returns false when full" do
+    course = courses(:full)
+    assert_not course.available?
+  end
+
+  test "available? returns false when registration deadline has passed" do
+    course = courses(:closed_five_km)
+    assert_not course.available?
+  end
 end
