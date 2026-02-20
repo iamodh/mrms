@@ -165,9 +165,12 @@ bundle exec rails runner "puts 'OK'"
 - [x] Course#full? - applied 수 >= capacity 시 true
 - [x] Course#available? - 마감 + 정원 조합 검증
 
-**Integration Tests (P0)**
+**Concurrency Tests (P0)** ← Issues #1 참조
 
 - [ ] 정원 1명, 동시 신청 2건 → 1건만 성공
+
+**Integration Tests**
+
 - [ ] 정원 초과 시 에러: "선택하신 코스의 정원이 마감되었습니다."
 
 **완료 조건:** 동시성 테스트 통과, 정원 초과 차단
@@ -186,9 +189,12 @@ bundle exec rails runner "puts 'OK'"
 
 - [ ] 동일 (race_id, name, phone_number) 중복 저장 시 에러
 
-**Integration Tests (P0)**
+**Concurrency Tests (P0)** ← Issues #1 참조
 
 - [ ] 동일 정보로 동시 신청 2건 → 1건만 성공
+
+**Integration Tests**
+
 - [ ] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
@@ -409,6 +415,6 @@ bundle exec rails runner "puts 'OK'"
 
 | #   | 마일스톤 | 내용 | 상태 |
 | --- | -------- | ---- | ---- |
-|     |          |      |      |
+| 1   | M5, M6   | 동시성 테스트: `ActionDispatch::IntegrationTest`의 `post`는 `@response` 등 인스턴스 변수를 공유하여 thread-safe하지 않음. 모델 레벨에서 `Thread` + `ActiveRecord::Base.connection_pool.checkout`으로 별도 커넥션을 확보하여 테스트한다 (TECHSPEC § 8.3 참조) | 적용 |
 
 ---
