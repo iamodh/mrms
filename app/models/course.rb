@@ -5,4 +5,8 @@ class Course < ApplicationRecord
   def remaining_slots
     capacity - registrations.where(status: "applied").count
   end
+
+  def full?
+    remaining_slots <= 0
+  end
 end

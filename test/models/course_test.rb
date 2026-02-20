@@ -15,4 +15,14 @@ class CourseTest < ActiveSupport::TestCase
     course = courses(:five_km)
     assert_equal course.capacity - 1, course.remaining_slots
   end
+
+  test "full? returns true when applied count >= capacity" do
+    course = courses(:full)
+    assert course.full?
+  end
+
+  test "full? returns false when applied count < capacity" do
+    course = courses(:five_km)
+    assert_not course.full?
+  end
 end
