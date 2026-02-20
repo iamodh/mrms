@@ -167,7 +167,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Concurrency Tests (P0)** ← Issues #1 참조
 
-- [ ] 정원 1명, 동시 신청 2건 → 1건만 성공
+- [x] 정원 1명, 동시 신청 2건 → 1건만 성공
 
 **Integration Tests**
 
