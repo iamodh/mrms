@@ -40,6 +40,23 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_select "textarea[name='registration[address]']"
   end
 
+  test "registration fails with error when course is full" do
+    course = courses(:full)
+
+    post course_registrations_path(course), params: {
+      registration: {
+        name: "테스트",
+        phone_number: "01099999999",
+        birth_date: "1990-01-01",
+        gender: "male",
+        address: "서울시 강남구"
+      }
+    }
+
+    assert_redirected_to new_course_registration_path(course)
+    assert_equal "선택하신 코스의 정원이 마감되었습니다.", flash[:alert]
+  end
+
   test "submitting with missing fields re-renders form with validation errors and preserves input" do
     course = courses(:five_km)
     kept_name = "김철수"

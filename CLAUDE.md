@@ -75,6 +75,12 @@
 - Association 선언(has_many, belongs_to)은 M3 범위이므로, M2 Seed에서는 association 메서드(`race.courses`) 대신 FK 직접 참조(`race_id: race.id`)를 사용한다
 - M3 완료 후 Seed를 association 방식으로 리팩토링할 수 있다
 
+### 테스트 작성 원칙
+
+- 동시성(Thread) 테스트는 반드시 모델 레벨(`ActiveSupport::TestCase`)에서 작성
+- `ActionDispatch::IntegrationTest`에서 Thread + post 조합 금지 (`@response` 공유 충돌)
+- 통합 테스트는 단일 요청의 HTTP 플로우 검증에만 사용
+
 ### 작성하지 않는 테스트
 
 - 스키마 레벨 테스트 (컬럼 타입, 존재 여부) — 마이그레이션이 명세서 역할
@@ -82,6 +88,12 @@
 ---
 
 ## CONSTRAINTS
+
+### Gem 사용 규칙
+
+- 새로운 gem을 사용하기 전에 반드시 Gemfile에 존재하는지 확인
+- 없으면 코드 작성 전에 gem 추가 필요 여부를 먼저 알려줄 것
+- 기존 의존성만으로 해결 가능한지 우선 검토
 
 - [ ] 테스트 없이 프로덕션 코드 작성 금지 (단, Association 선언은 선언적 코드이므로 예외)
 - [ ] 한 번에 여러 기능 구현 금지
@@ -137,3 +149,4 @@ TECHSPEC 코드 패턴을 **정확히** 따를 것.
 - **네이밍:** snake_case (Ruby)
 - **커밋 메시지:** Conventional Commits 형식
 - **문자열:** 더블쿼트 우선 (rubocop-rails-omakase 기본)
+- **Skinny Controller, Fat Model:** 비즈니스 로직과 쿼리는 모델(scope, 메서드)에 두고, 컨트롤러는 요청/응답 흐름만 담당

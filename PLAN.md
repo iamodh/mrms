@@ -15,7 +15,8 @@
 ### `commit` - 완료 처리
 
 1. **Update PLAN.md**: 완료된 항목에 체크박스 표시
-2. **Commit**: PLAN.md 변경을 포함하여 커밋한다
+2. **Update Commits**: 해당 마일스톤의 `- Commits:` 줄에 커밋 해시(short)를 추가한다 (기존 값이 있으면 쉼표로 이어붙임)
+3. **Commit**: PLAN.md 변경을 포함하여 커밋한다
 
 ### `verify` - 마일스톤 완료 후 수동 검증
 
@@ -103,7 +104,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** `rails db:migrate db:seed` 성공, 스키마 확인
 
-- Commits:
+- Commits: f9f8837, e3198e6, bc21012, 4739793, 399882d, 1645f88
 
 ---
 
@@ -127,7 +128,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 모든 유닛 테스트 통과
 
-- Commits:
+- Commits: 1efce8a, 8ff35e0, 0d0e543, ea6caee, a30813c
 
 ---
 
@@ -149,7 +150,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 신청 폼 동작, 정규화 적용, 에러 시 입력값 보존
 
-- Commits:
+- Commits: 74d04d1, b27ac56, b133a69, 1598721, 30734ad, 95653ba, a705d01
 
 ---
 
@@ -161,17 +162,20 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] Course#full? - applied 수 >= capacity 시 true
-- [ ] Course#available? - 마감 + 정원 조합 검증
+- [x] Course#full? - applied 수 >= capacity 시 true
+- [x] Course#available? - 마감 + 정원 조합 검증
 
-**Integration Tests (P0)**
+**Concurrency Tests (P0)** ← Issues #1 참조
 
-- [ ] 정원 1명, 동시 신청 2건 → 1건만 성공
-- [ ] 정원 초과 시 에러: "선택하신 코스의 정원이 마감되었습니다."
+- [x] 정원 1명, 동시 신청 2건 → 1건만 성공
+
+**Integration Tests**
+
+- [x] 정원 초과 시 에러: "선택하신 코스의 정원이 마감되었습니다."
 
 **완료 조건:** 동시성 테스트 통과, 정원 초과 차단
 
-- Commits:
+- Commits: 1601373, 22a4463, 486c4a4, 7355866
 
 ---
 
@@ -185,9 +189,12 @@ bundle exec rails runner "puts 'OK'"
 
 - [ ] 동일 (race_id, name, phone_number) 중복 저장 시 에러
 
-**Integration Tests (P0)**
+**Concurrency Tests (P0)** ← Issues #1 참조
 
 - [ ] 동일 정보로 동시 신청 2건 → 1건만 성공
+
+**Integration Tests**
+
 - [ ] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
@@ -408,6 +415,7 @@ bundle exec rails runner "puts 'OK'"
 
 | #   | 마일스톤 | 내용 | 상태 |
 | --- | -------- | ---- | ---- |
-|     |          |      |      |
+| 1   | M5, M6   | 동시성 테스트: `ActionDispatch::IntegrationTest`의 `post`는 `@response` 등 인스턴스 변수를 공유하여 thread-safe하지 않음. 모델 레벨에서 `Thread` + `ActiveRecord::Base.connection_pool.with_connection`으로 별도 커넥션을 확보하여 테스트한다 (TECHSPEC § 8.3 참조) | 적용 |
+| 2   | M5       | `save` vs `create!`: 컨트롤러에서 `create_registration!`(`create!` 사용)로 전환 시, 예외 발생하면 `@registration`에 할당이 안 되어 뷰 렌더링 실패. `rescue ActiveRecord::RecordInvalid => e`에서 `e.record`로 실패한 객체를 꺼내 `@registration`에 할당하여 해결 | 적용 |
 
 ---

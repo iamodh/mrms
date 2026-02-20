@@ -6,13 +6,13 @@ class RegistrationsController < ApplicationController
 
   def create
     @course = Course.find(params[:course_id])
-    @registration = @course.registrations.new(registration_params)
-
-    if @registration.save
-      redirect_to root_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    @registration = @course.create_registration!(registration_params)
+    redirect_to root_path
+  rescue Course::CapacityExceededError => e
+    redirect_to new_course_registration_path(@course), alert: e.message
+  rescue ActiveRecord::RecordInvalid => e
+    @registration = e.record
+    render :new, status: :unprocessable_entity
   end
 
   private
