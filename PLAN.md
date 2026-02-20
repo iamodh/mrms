@@ -163,7 +163,7 @@ bundle exec rails runner "puts 'OK'"
 **Unit Tests**
 
 - [x] Course#full? - applied 수 >= capacity 시 true
-- [ ] Course#available? - 마감 + 정원 조합 검증
+- [x] Course#available? - 마감 + 정원 조합 검증
 
 **Integration Tests (P0)**
 
