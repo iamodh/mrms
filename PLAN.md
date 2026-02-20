@@ -15,7 +15,8 @@
 ### `commit` - 완료 처리
 
 1. **Update PLAN.md**: 완료된 항목에 체크박스 표시
-2. **Commit**: PLAN.md 변경을 포함하여 커밋한다
+2. **Update Commits**: 해당 마일스톤의 `- Commits:` 줄에 커밋 해시(short)를 추가한다 (기존 값이 있으면 쉼표로 이어붙임)
+3. **Commit**: PLAN.md 변경을 포함하여 커밋한다
 
 ### `verify` - 마일스톤 완료 후 수동 검증
 
@@ -103,7 +104,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** `rails db:migrate db:seed` 성공, 스키마 확인
 
-- Commits:
+- Commits: f9f8837, e3198e6, bc21012, 4739793, 399882d, 1645f88
 
 ---
 
@@ -127,7 +128,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 모든 유닛 테스트 통과
 
-- Commits:
+- Commits: 1efce8a, 8ff35e0, 0d0e543, ea6caee, a30813c
 
 ---
 
@@ -149,7 +150,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 신청 폼 동작, 정규화 적용, 에러 시 입력값 보존
 
-- Commits:
+- Commits: 74d04d1, b27ac56, b133a69, 1598721, 30734ad, 95653ba, a705d01
 
 ---
 
