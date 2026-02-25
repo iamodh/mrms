@@ -191,7 +191,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Concurrency Tests (P0)** ← Issues #1 참조
 
-- [ ] 동일 정보로 동시 신청 2건 → 1건만 성공
+- [x] 동일 정보로 동시 신청 2건 → 1건만 성공
 
 **Integration Tests**
 
@@ -199,7 +199,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
 
-- Commits: ca85d33
+- Commits: ca85d33, a5862cc
 
 ---
 
