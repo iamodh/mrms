@@ -10,6 +10,9 @@ class RegistrationsController < ApplicationController
     redirect_to root_path
   rescue Course::CapacityExceededError => e
     redirect_to new_course_registration_path(@course), alert: e.message
+  rescue ActiveRecord::RecordNotUnique
+    redirect_to new_course_registration_path(@course),
+      alert: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
   rescue ActiveRecord::RecordInvalid => e
     @registration = e.record
     render :new, status: :unprocessable_entity

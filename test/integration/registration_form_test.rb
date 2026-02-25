@@ -57,6 +57,26 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_equal "선택하신 코스의 정원이 마감되었습니다.", flash[:alert]
   end
 
+  test "duplicate registration re-renders form with error message" do
+    existing = registrations(:hong_5km)
+    course = courses(:ten_km)
+
+    assert_no_difference "Registration.count" do
+      post course_registrations_path(course), params: {
+        registration: {
+          name: existing.name,
+          phone_number: existing.phone_number,
+          birth_date: "1995-06-15",
+          gender: "female",
+          address: "부산시 해운대구"
+        }
+      }
+    end
+
+    assert_response :unprocessable_entity
+    assert_select ".field-errors", text: /이미 동일한 이름과 전화번호로 신청된 내역이 있습니다/
+  end
+
   test "submitting with missing fields re-renders form with validation errors and preserves input" do
     course = courses(:five_km)
     kept_name = "김철수"

@@ -187,19 +187,19 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] 동일 (race_id, name, phone_number) 중복 저장 시 에러
+- [x] 동일 (race_id, name, phone_number) 중복 저장 시 에러
 
 **Concurrency Tests (P0)** ← Issues #1 참조
 
-- [ ] 동일 정보로 동시 신청 2건 → 1건만 성공
+- [x] 동일 정보로 동시 신청 2건 → 1건만 성공
 
 **Integration Tests**
 
-- [ ] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
+- [x] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
 
-- Commits:
+- Commits: ca85d33, a5862cc, f897a6a
 
 ---
 
