@@ -49,6 +49,21 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_includes registration.errors[:address], "is too long (maximum is 30 characters)"
   end
 
+  test "rejects duplicate registration with same race, name, and phone_number even on different course" do
+    existing = registrations(:hong_5km)
+    duplicate = Registration.new(
+      race: existing.race,
+      course: courses(:ten_km),
+      name: existing.name,
+      phone_number: existing.phone_number,
+      birth_date: "1995-06-15",
+      gender: "female",
+      address: "부산시 해운대구"
+    )
+    assert_not duplicate.valid?
+    assert_includes duplicate.errors[:name], "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil

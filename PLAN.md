@@ -187,7 +187,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] 동일 (race_id, name, phone_number) 중복 저장 시 에러
+- [x] 동일 (race_id, name, phone_number) 중복 저장 시 에러
 
 **Concurrency Tests (P0)** ← Issues #1 참조
 
@@ -199,7 +199,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
 
-- Commits:
+- Commits: ca85d33
 
 ---
 
