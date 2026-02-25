@@ -195,11 +195,11 @@ bundle exec rails runner "puts 'OK'"
 
 **Integration Tests**
 
-- [ ] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
+- [x] 중복 시 에러: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
 
 **완료 조건:** 중복 신청 차단, 동시성 테스트 통과
 
-- Commits: ca85d33, a5862cc
+- Commits: ca85d33, a5862cc, f897a6a
 
 ---
 
