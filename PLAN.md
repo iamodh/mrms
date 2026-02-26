@@ -211,17 +211,17 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] Race#registration_closed? - 마감일 경과 시 true
-- [ ] Course#available? - 마감 OR 정원 초과 시 false
+- [x] Race#registration_closed? - 마감일 경과 시 true
+- [x] Course#available? - 마감 OR 정원 초과 시 false
 
 **Integration Tests (P0)**
 
-- [ ] 마감일 경과 후 신청 → 차단, 메시지: "신청 기간이 종료되었습니다."
-- [ ] 정원 마감 후 신청 → 차단, 메시지: "선택하신 코스의 정원이 마감되었습니다."
+- [x] 마감일 경과 후 신청 → 차단, 메시지: "신청 기간이 종료되었습니다."
+- [x] 정원 마감 후 신청 → 차단, 메시지: "선택하신 코스의 정원이 마감되었습니다."
 
 **완료 조건:** 마감 후 신청 완전 차단
 
-- Commits:
+- Commits: 7aac534, 4eb119b, e2c95f2, 2cf2c45, 71abcf8
 
 ---
 

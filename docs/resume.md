@@ -22,14 +22,16 @@
 
 ```ruby
 Course.transaction do
-  lock!                    # SELECT ... FOR UPDATE
+  lock!                              # SELECT ... FOR UPDATE
+  raise RegistrationClosedError if race.registration_closed?
   raise CapacityExceededError if full?
   registrations.create!(params)
 end
 ```
 
 - `lock!`으로 같은 코스에 대한 동시 트랜잭션을 직렬화
-- 두 번째 요청은 첫 번째 커밋 이후에 count를 다시 확인하므로 정원 초과를 정확히 감지
+- 마감일 체크와 정원 체크를 동일한 트랜잭션 내에서 수행 — 모델이 자기 데이터를 스스로 보호
+- 컨트롤러의 `available?` 사전 체크는 UX를 위한 빠른 거부용이고, 모델이 최종 안전장치
 
 ### 중복 신청 방지: 3단계 방어
 
@@ -102,7 +104,9 @@ rescue ActiveRecord::RecordNotUnique
 
 | 계층 | 방어 대상 | 수단 | 실패 시 |
 |------|-----------|------|---------|
-| Application | 순차 중복 요청 | `validates uniqueness` | 폼 re-render + 에러 메시지 |
-| Application | 정원 초과 | `lock!` + count 체크 | redirect + flash alert |
+| Controller | 빠른 거부 (UX) | `available?` 사전 체크 | redirect + flash alert |
+| Model | 마감일 초과 | `lock!` + `registration_closed?` | `RegistrationClosedError` |
+| Model | 정원 초과 | `lock!` + count 체크 | `CapacityExceededError` |
+| Model | 순차 중복 요청 | `validates uniqueness` | 폼 re-render + 에러 메시지 |
 | Database | 동시 중복 요청 | Unique Index | `RecordNotUnique` 발생 |
 | Controller | 500 에러 방지 | `rescue RecordNotUnique` | redirect + flash alert |

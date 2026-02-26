@@ -77,6 +77,25 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_select ".field-errors", text: /이미 동일한 이름과 전화번호로 신청된 내역이 있습니다/
   end
 
+  test "registration fails when registration deadline has passed" do
+    course = courses(:closed_five_km)
+
+    assert_no_difference "Registration.count" do
+      post course_registrations_path(course), params: {
+        registration: {
+          name: "테스트",
+          phone_number: "01099999999",
+          birth_date: "1990-01-01",
+          gender: "male",
+          address: "서울시 강남구"
+        }
+      }
+    end
+
+    assert_redirected_to new_course_registration_path(course)
+    assert_equal "신청 기간이 종료되었습니다.", flash[:alert]
+  end
+
   test "submitting with missing fields re-renders form with validation errors and preserves input" do
     course = courses(:five_km)
     kept_name = "김철수"

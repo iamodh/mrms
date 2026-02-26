@@ -6,9 +6,16 @@ class RegistrationsController < ApplicationController
 
   def create
     @course = Course.find(params[:course_id])
+
+    unless @course.available?
+      alert = @course.race.registration_closed? ? "신청 기간이 종료되었습니다." : "선택하신 코스의 정원이 마감되었습니다."
+      redirect_to new_course_registration_path(@course), alert: alert
+      return
+    end
+
     @registration = @course.create_registration!(registration_params)
     redirect_to root_path
-  rescue Course::CapacityExceededError => e
+  rescue Course::RegistrationClosedError, Course::CapacityExceededError => e
     redirect_to new_course_registration_path(@course), alert: e.message
   rescue ActiveRecord::RecordNotUnique
     redirect_to new_course_registration_path(@course),

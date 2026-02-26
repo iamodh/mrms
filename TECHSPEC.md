@@ -572,7 +572,7 @@ end
 def create
   create_registration(@course, registration_params)
   redirect_to complete_path, notice: "신청이 완료되었습니다."
-rescue CapacityExceededError => e
+rescue RegistrationClosedError, CapacityExceededError => e
   redirect_to new_registration_path, alert: e.message
 rescue ActiveRecord::RecordNotUnique
   redirect_to new_registration_path, alert: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
@@ -584,12 +584,10 @@ def create_registration(course, params)
   Course.transaction do
     course.lock!
 
-    current_count = course.registrations.where(status: :applied).count
-    if current_count >= course.capacity
-      raise CapacityExceededError, "선택하신 코스의 정원이 마감되었습니다."
-    end
+    raise RegistrationClosedError, "신청 기간이 종료되었습니다." if course.race.registration_closed?
+    raise CapacityExceededError, "선택하신 코스의 정원이 마감되었습니다." if course.full?
 
-    course.registrations.create!(params.merge(status: :applied))
+    course.registrations.create!(params.merge(race: course.race, status: :applied))
   end
 end
 ```
@@ -598,7 +596,7 @@ end
 
 1. 트랜잭션 시작
 2. Course 행 잠금 (`lock!` → FOR UPDATE)
-3. applied 상태 신청 수 확인
+3. 마감일 경과? → RegistrationClosedError, 롤백, 끝
 4. 정원 초과? → CapacityExceededError, 롤백, 끝
 5. 정원 OK → Registration INSERT 시도
 6. DB unique index 검사 (INSERT 시점에 자동)
@@ -655,9 +653,9 @@ end
 
 **흐름:**
 
-1. 마감 여부 먼저 체크 (트랜잭션 불필요)
+1. 컨트롤러: `available?`로 빠른 거부 (UX용, 트랜잭션 불필요)
 2. 마감 시 사유별 메시지 반환
-3. 통과 시 6.2 정원 + 중복 체크 (트랜잭션) 진행
+3. 통과 시 `create_registration!` → 트랜잭션 내 마감 + 정원 + 중복 재검증 (데이터 무결성 보장)
 
 ---
 
