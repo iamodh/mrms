@@ -221,7 +221,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 마감 후 신청 완전 차단
 
-- Commits: 7aac534, 4eb119b, e2c95f2, 2cf2c45
+- Commits: 7aac534, 4eb119b, e2c95f2, 2cf2c45, 71abcf8
 
 ---
 
