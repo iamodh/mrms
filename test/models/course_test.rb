@@ -40,4 +40,18 @@ class CourseTest < ActiveSupport::TestCase
     course = courses(:closed_five_km)
     assert_not course.available?
   end
+
+  test "create_registration! raises RegistrationClosedError when deadline has passed" do
+    course = courses(:closed_five_km)
+
+    assert_raises(Course::RegistrationClosedError) do
+      course.create_registration!(
+        name: "테스트",
+        phone_number: "01099999999",
+        birth_date: "1990-01-01",
+        gender: "male",
+        address: "서울시 강남구"
+      )
+    end
+  end
 end

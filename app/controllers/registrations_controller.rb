@@ -15,7 +15,7 @@ class RegistrationsController < ApplicationController
 
     @registration = @course.create_registration!(registration_params)
     redirect_to root_path
-  rescue Course::CapacityExceededError => e
+  rescue Course::RegistrationClosedError, Course::CapacityExceededError => e
     redirect_to new_course_registration_path(@course), alert: e.message
   rescue ActiveRecord::RecordNotUnique
     redirect_to new_course_registration_path(@course),
