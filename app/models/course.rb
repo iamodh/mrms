@@ -13,7 +13,7 @@ class Course < ApplicationRecord
   end
 
   def available?
-    !full? && race.registration_deadline > Time.current
+    !race.registration_closed? && !full?
   end
 
   def create_registration!(params)

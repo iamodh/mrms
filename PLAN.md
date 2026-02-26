@@ -212,7 +212,7 @@ bundle exec rails runner "puts 'OK'"
 **Unit Tests**
 
 - [x] Race#registration_closed? - 마감일 경과 시 true
-- [ ] Course#available? - 마감 OR 정원 초과 시 false
+- [x] Course#available? - 마감 OR 정원 초과 시 false
 
 **Integration Tests (P0)**
 
