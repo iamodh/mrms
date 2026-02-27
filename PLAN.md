@@ -272,6 +272,17 @@ bundle exec rails runner "puts 'OK'"
 
 ---
 
+### Milestone 9.5: 배포 테스트
+
+**목표:** M9 완료 시점(첫 사용자 테스트 가능)에서 프로덕션 배포 및 실제 동작 확인
+
+- [ ] `bundle exec brakeman -q --no-pager` 통과
+- [ ] `bundle audit check --update` 통과
+- [ ] Kamal 배포 설정 및 프로덕션 배포
+- [ ] 프로덕션에서 신청 → 조회 → 취소 플로우 동작 확인
+
+---
+
 ### Milestone 10: 관리자 인증
 
 **목표:** 환경변수 기반 관리자 로그인/로그아웃
