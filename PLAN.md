@@ -241,7 +241,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 신청 시 고유 코드 발급, 완료 페이지 표시
 
-- Commits: e26d442
+- Commits: e26d442, bef2bb3
 
 ---
 
