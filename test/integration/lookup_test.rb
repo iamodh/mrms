@@ -22,4 +22,19 @@ class LookupTest < ActionDispatch::IntegrationTest
     assert_redirected_to lookup_path
     assert_equal "신청 내역을 찾을 수 없습니다.", flash[:alert]
   end
+
+  test "cancel changes status to canceled and records canceled_at" do
+    registration = registrations(:hong_5km)
+
+    delete lookup_path, params: {
+      confirmation_code: registration.confirmation_code,
+      name: registration.name
+    }
+
+    registration.reload
+    assert registration.canceled?
+    assert_not_nil registration.canceled_at
+    assert_redirected_to lookup_path
+    assert_equal "신청이 취소되었습니다.", flash[:notice]
+  end
 end
