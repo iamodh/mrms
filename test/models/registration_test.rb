@@ -76,6 +76,42 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_match(/\A[A-Z0-9]{8}\z/, registration.confirmation_code)
   end
 
+  test "cancelable? returns true when applied and registration open" do
+    assert registrations(:hong_5km).cancelable?
+  end
+
+  test "cancelable? returns false when registration closed" do
+    assert_not registrations(:closed_registration).cancelable?
+  end
+
+  test "cancelable? returns false when canceled or refunded" do
+    registration = registrations(:hong_5km)
+
+    registration.status = :canceled
+    assert_not registration.cancelable?
+
+    registration.status = :refunded
+    assert_not registration.cancelable?
+  end
+
+  test "cancel! changes status to canceled and sets canceled_at" do
+    registration = registrations(:hong_5km)
+    registration.cancel!
+    assert registration.canceled?
+    assert_not_nil registration.canceled_at
+  end
+
+  test "cancel! is idempotent for already canceled registration" do
+    registration = registrations(:hong_5km)
+    registration.cancel!
+    assert registration.cancel!
+  end
+
+  test "cancel! raises NotCancelableError when registration closed" do
+    registration = registrations(:closed_registration)
+    assert_raises(Registration::NotCancelableError) { registration.cancel! }
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil

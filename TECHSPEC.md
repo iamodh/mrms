@@ -709,7 +709,7 @@ end
 ```ruby
 # RegistrationsController
 def cancel
-  registration = Registration.find_by!(confirmation_code: params[:code])
+  registration = Registration.find_by!(confirmation_code: params[:confirmation_code], name: params[:name])
 
   registration.cancel!
   redirect_to registration_path(registration), notice: "신청이 취소되었습니다."
@@ -722,7 +722,7 @@ end
 
 **규칙:**
 
-- 조회 페이지에서 취소 진행 → confirmation_code만으로 식별
+- 조회 페이지에서 취소 진행 → confirmation_code + name으로 본인 확인
 - 이미 canceled/refunded 상태면 성공 응답 (에러 아님)
 - 신청 마감일 이후에는 취소 불가
 - 서버에서 취소 가능 여부 검증 (프론트엔드 버튼 숨김에만 의존하지 않음)

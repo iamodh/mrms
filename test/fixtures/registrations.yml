@@ -7,3 +7,13 @@ hong_5km:
   phone_number: "01012345678"
   address: "서울시 강남구"
   confirmation_code: "A1B2C3D4"
+
+closed_registration:
+  race: closed_race
+  course: closed_five_km
+  name: "김마감"
+  birth_date: "1985-05-05"
+  gender: "female"
+  phone_number: "01055556666"
+  address: "부산시 해운대구"
+  confirmation_code: "X9Y8Z7W6"

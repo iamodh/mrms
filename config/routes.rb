@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   root "home#show"
 
+  get "lookup", to: "lookup#new"
+  post "lookup", to: "lookup#create"
+  delete "lookup", to: "lookup#cancel"
+
   resources :courses, only: [] do
     resources :registrations, only: [ :new, :create, :show ]
   end

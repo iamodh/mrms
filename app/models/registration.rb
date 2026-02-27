@@ -1,10 +1,13 @@
 class Registration < ApplicationRecord
+  class NotCancelableError < StandardError; end
+
   belongs_to :race
   belongs_to :course
 
   before_validation :set_race_from_course
   before_create :generate_confirmation_code
 
+  enum :status, { applied: "applied", canceled: "canceled", refunded: "refunded" }
   enum :gender, { male: "male", female: "female" }
 
   normalizes :name, with: ->(name) { name.gsub(/\s+/, "") }
@@ -17,6 +20,18 @@ class Registration < ApplicationRecord
   validates :phone_number, presence: true, length: { is: 11 }
   validates :birth_date, :gender, presence: true
   validates :address, presence: true, length: { maximum: 30 }
+
+  def cancelable?
+    applied? && !race.registration_closed?
+  end
+
+  def cancel!
+    return true if canceled?
+
+    raise NotCancelableError, "취소 가능 기간이 지났습니다." unless cancelable?
+
+    update!(status: :canceled, canceled_at: Time.current)
+  end
 
   private
 

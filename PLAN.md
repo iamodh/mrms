@@ -254,21 +254,21 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] Registration#cancelable? - applied 상태 + 마감 전만 true
-- [ ] Registration#cancel! - 멱등성: 이미 취소면 성공 반환
-- [ ] 마감 후 cancel! → NotCancelableError
+- [x] Registration#cancelable? - applied 상태 + 마감 전만 true
+- [x] Registration#cancel! - 멱등성: 이미 취소면 성공 반환
+- [x] 마감 후 cancel! → NotCancelableError
 
 **Integration Tests**
 
-- [ ] confirmation_code + 이름으로 조회 성공
-- [ ] 잘못된 정보로 조회 → 에러 메시지
-- [ ] 취소 성공 → status 변경, canceled_at 기록
-- [ ] 이미 취소된 신청 다시 취소 → 에러 없이 성공 (P1)
-- [ ] 마감 후 취소 시도 → 차단 (P0)
+- [x] confirmation_code + 이름으로 조회 성공
+- [x] 잘못된 정보로 조회 → 에러 메시지
+- [x] 취소 성공 → status 변경, canceled_at 기록
+- [x] 이미 취소된 신청 다시 취소 → 에러 없이 성공 (P1)
+- [x] 마감 후 취소 시도 → 차단 (P0)
 
 **완료 조건:** 조회/취소 플로우 동작, 멱등성 보장
 
-- Commits:
+- Commits: 830d05d, 1b27243, 4f0101d, ee8c85f
 
 ---
 
