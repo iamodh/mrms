@@ -206,6 +206,13 @@ redirect 후에는 페이지 본문이 없으므로 `assert_select`를 쓸 수 �
 
 ---
 
+# if/else vs rescue: 에러 처리 방식 선택 기준
+
+- **if/else** — 예상된 분기. 정상 흐름의 일부. (예: 조회 실패, 사전 체크)
+- **rescue** — 예외 상황. 정상 흐름에서 벗어난 경우. (예: 동시성 충돌, DB 제약 위반)
+
+---
+
 # Rails normalizes vs before_validation
 
 ## normalizes — 선언적 정규화 (Rails 7.1+)
