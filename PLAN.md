@@ -233,8 +233,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] confirmation_code 형식: 영문 대문자 + 숫자 8자리
-- [ ] confirmation_code 유니크 보장
+- [x] confirmation_code 형식: 영문 대문자 + 숫자 8자리
 
 **Integration Tests**
 

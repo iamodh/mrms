@@ -110,3 +110,35 @@ rescue ActiveRecord::RecordNotUnique
 | Model | 순차 중복 요청 | `validates uniqueness` | 폼 re-render + 에러 메시지 |
 | Database | 동시 중복 요청 | Unique Index | `RecordNotUnique` 발생 |
 | Controller | 500 에러 방지 | `rescue RecordNotUnique` | redirect + flash alert |
+
+---
+
+# 스키마 설계: Registration에 race_id가 있는 이유
+
+## 배경
+
+MVP는 단일 Race로 동작한다. Registration은 Course에 속하고, Course는 Race에 속하므로 `registration.course.race`로 대회를 알 수 있다. 그런데도 Registration 테이블에 `race_id` 컬럼을 직접 두었다.
+
+## 이유: 교차 코스 중복 방지를 위한 Unique Index
+
+같은 대회에서 한 사람이 5km와 10km에 동시에 신청하는 것을 방지해야 한다. 이를 DB 레벨에서 보장하려면 `(race_id, name, phone_number)` unique index가 필요하다.
+
+```ruby
+add_index :registrations, [:race_id, :name, :phone_number], unique: true
+```
+
+`course_id`만으로는 **같은 코스** 내 중복만 막을 수 있고, **다른 코스** 간 중복은 막을 수 없다. `race_id`를 Registration에 직접 두어야 대회 단위의 1인 1신청을 인덱스 하나로 보장할 수 있다.
+
+## race_id 자동 세팅
+
+MVP에서 Race는 하나뿐이므로, 사용자가 폼에서 Course만 선택하면 race_id는 자동으로 채운다.
+
+```ruby
+before_validation :set_race_from_course
+
+def set_race_from_course
+  self.race = course.race if course.present? && race.blank?
+end
+```
+
+컨트롤러와 폼에서 race를 명시적으로 다룰 필요가 없어지고, 코스 선택만으로 신청이 완성된다.
