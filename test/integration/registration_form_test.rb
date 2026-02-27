@@ -96,6 +96,26 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_equal "신청 기간이 종료되었습니다.", flash[:alert]
   end
 
+  test "successful registration redirects to completion page showing confirmation code" do
+    course = courses(:five_km)
+
+    post course_registrations_path(course), params: {
+      registration: {
+        name: "완료테스트",
+        phone_number: "01077776666",
+        birth_date: "1990-01-01",
+        gender: "male",
+        address: "서울시 강남구"
+      }
+    }
+
+    registration = Registration.find_by(name: "완료테스트", phone_number: "01077776666")
+    assert_redirected_to course_registration_path(course, registration)
+    follow_redirect!
+    assert_response :success
+    assert_select ".confirmation-code", text: /#{registration.confirmation_code}/
+  end
+
   test "submitting with missing fields re-renders form with validation errors and preserves input" do
     course = courses(:five_km)
     kept_name = "김철수"

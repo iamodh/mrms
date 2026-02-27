@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   root "home#show"
 
   resources :courses, only: [] do
-    resources :registrations, only: [ :new, :create ]
+    resources :registrations, only: [ :new, :create, :show ]
   end
 end

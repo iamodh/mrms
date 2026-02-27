@@ -75,7 +75,7 @@ bundle exec rails runner "puts 'OK'"
 **목표:** Rails 8 프로젝트 생성 및 기본 설정
 
 - [x] Rails 프로젝트 생성 (`rails new mrms -d sqlite3`)
-- [x] RuboCop 설정 (.rubocop.yml)
+- [x] RuboCop 설정 (.rubocop.yml, ERB 파일 Exclude 포함)
 - [x] 보안 gem 추가 (brakeman, bundler-audit - development group)
 - [x] dotenv-rails 추가 및 .env 설정
 - [x] .gitignore 업데이트 (.env 추가)
@@ -237,7 +237,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Integration Tests**
 
-- [ ] 신청 완료 → 완료 페이지에 코드 표시
+- [x] 신청 완료 → 완료 페이지에 코드 표시
 
 **완료 조건:** 신청 시 고유 코드 발급, 완료 페이지 표시
 
