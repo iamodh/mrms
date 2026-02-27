@@ -37,4 +37,29 @@ class LookupTest < ActionDispatch::IntegrationTest
     assert_redirected_to lookup_path
     assert_equal "신청이 취소되었습니다.", flash[:notice]
   end
+
+  test "canceling already canceled registration succeeds without error" do
+    registration = registrations(:hong_5km)
+    registration.cancel!
+
+    delete lookup_path, params: {
+      confirmation_code: registration.confirmation_code,
+      name: registration.name
+    }
+
+    assert_redirected_to lookup_path
+    assert_equal "신청이 취소되었습니다.", flash[:notice]
+  end
+
+  test "canceling after registration deadline is blocked" do
+    registration = registrations(:closed_registration)
+
+    delete lookup_path, params: {
+      confirmation_code: registration.confirmation_code,
+      name: registration.name
+    }
+
+    assert_redirected_to lookup_path
+    assert_equal "취소 가능 기간이 지났습니다.", flash[:alert]
+  end
 end
