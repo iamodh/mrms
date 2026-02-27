@@ -260,8 +260,8 @@ bundle exec rails runner "puts 'OK'"
 
 **Integration Tests**
 
-- [ ] confirmation_code + 이름으로 조회 성공
-- [ ] 잘못된 정보로 조회 → 에러 메시지
+- [x] confirmation_code + 이름으로 조회 성공
+- [x] 잘못된 정보로 조회 → 에러 메시지
 - [ ] 취소 성공 → status 변경, canceled_at 기록
 - [ ] 이미 취소된 신청 다시 취소 → 에러 없이 성공 (P1)
 - [ ] 마감 후 취소 시도 → 차단 (P0)
