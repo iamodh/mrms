@@ -254,9 +254,9 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] Registration#cancelable? - applied 상태 + 마감 전만 true
-- [ ] Registration#cancel! - 멱등성: 이미 취소면 성공 반환
-- [ ] 마감 후 cancel! → NotCancelableError
+- [x] Registration#cancelable? - applied 상태 + 마감 전만 true
+- [x] Registration#cancel! - 멱등성: 이미 취소면 성공 반환
+- [x] 마감 후 cancel! → NotCancelableError
 
 **Integration Tests**
 
