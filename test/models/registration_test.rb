@@ -64,6 +64,18 @@ class RegistrationTest < ActiveSupport::TestCase
     assert_includes duplicate.errors[:name], "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
   end
 
+  test "generates confirmation_code of 8 uppercase alphanumeric characters on create" do
+    registration = Registration.create!(
+      course: courses(:five_km),
+      name: "테스트",
+      phone_number: "01099998888",
+      birth_date: "2000-01-01",
+      gender: "male",
+      address: "서울시 강남구"
+    )
+    assert_match(/\A[A-Z0-9]{8}\z/, registration.confirmation_code)
+  end
+
   test "requires name, phone_number, birth_date, gender, and address" do
     registration = registrations(:hong_5km)
     registration.name = nil

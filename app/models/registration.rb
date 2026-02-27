@@ -3,6 +3,7 @@ class Registration < ApplicationRecord
   belongs_to :course
 
   before_validation :set_race_from_course
+  before_create :generate_confirmation_code
 
   enum :gender, { male: "male", female: "female" }
 
@@ -21,5 +22,12 @@ class Registration < ApplicationRecord
 
   def set_race_from_course
     self.race = course.race if course.present? && race.blank?
+  end
+
+  def generate_confirmation_code
+    loop do
+      self.confirmation_code = SecureRandom.alphanumeric(8).upcase
+      break unless Registration.exists?(confirmation_code: confirmation_code)
+    end
   end
 end

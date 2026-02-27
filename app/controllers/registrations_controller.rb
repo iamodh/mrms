@@ -4,6 +4,11 @@ class RegistrationsController < ApplicationController
     @registration = @course.registrations.new
   end
 
+  def show
+    @course = Course.find(params[:course_id])
+    @registration = @course.registrations.find(params[:id])
+  end
+
   def create
     @course = Course.find(params[:course_id])
 
@@ -14,7 +19,7 @@ class RegistrationsController < ApplicationController
     end
 
     @registration = @course.create_registration!(registration_params)
-    redirect_to root_path
+    redirect_to course_registration_path(@course, @registration)
   rescue Course::RegistrationClosedError, Course::CapacityExceededError => e
     redirect_to new_course_registration_path(@course), alert: e.message
   rescue ActiveRecord::RecordNotUnique
