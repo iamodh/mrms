@@ -1,0 +1,13 @@
+<h1>신청 조회</h1>
+
+<%= form_with url: lookup_path, method: :post do |f| %>
+  <div>
+    <%= f.label :confirmation_code, "확인 코드" %>
+    <%= f.text_field :confirmation_code %>
+  </div>
+  <div>
+    <%= f.label :name, "이름" %>
+    <%= f.text_field :name %>
+  </div>
+  <%= f.submit "조회" %>
+<% end %>
