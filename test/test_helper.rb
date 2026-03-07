@@ -13,3 +13,13 @@ module ActiveSupport
     # Add more helper methods to be used by all tests here...
   end
 end
+
+module AdminTestHelper
+  def admin_login
+    post admin_login_path, params: { id: ENV["ADMIN_ID"], password: ENV["ADMIN_PW"] }
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  include AdminTestHelper
+end

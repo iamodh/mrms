@@ -11,6 +11,13 @@ Rails.application.routes.draw do
 
   root "home#show"
 
+  namespace :admin do
+    get "login", to: "sessions#new"
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
+    root "dashboard#show"
+  end
+
   get "lookup", to: "lookup#new"
   post "lookup", to: "lookup#create"
   delete "lookup", to: "lookup#cancel"

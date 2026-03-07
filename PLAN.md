@@ -304,9 +304,9 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] 올바른 ID/PW → 세션 생성
-- [ ] 잘못된 ID/PW → 로그인 실패
-- [ ] 로그아웃 → 세션 삭제
+- [x] 올바른 ID/PW → 세션 생성
+- [x] 잘못된 ID/PW → 로그인 실패
+- [x] 로그아웃 → 세션 삭제
 
 **Integration Tests**
 

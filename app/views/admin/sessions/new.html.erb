@@ -1,0 +1,17 @@
+<h1>관리자 로그인</h1>
+
+<% if flash[:alert] %>
+  <p><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with url: admin_login_path do |f| %>
+  <div>
+    <%= f.label :id, "아이디" %>
+    <%= f.text_field :id %>
+  </div>
+  <div>
+    <%= f.label :password, "비밀번호" %>
+    <%= f.password_field :password %>
+  </div>
+  <%= f.submit "로그인" %>
+<% end %>
