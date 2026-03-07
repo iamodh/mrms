@@ -280,8 +280,8 @@ bundle exec rails runner "puts 'OK'"
 
 **보안 점검**
 
-- [ ] `bundle exec brakeman -q --no-pager` 통과
-- [ ] `bundle audit check --update` 통과
+- [x] `bundle exec brakeman -q --no-pager` 통과
+- [x] `bundle audit check --update` 통과
 
 **배포**
 
