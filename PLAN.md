@@ -308,14 +308,9 @@ bundle exec rails runner "puts 'OK'"
 - [x] 잘못된 ID/PW → 로그인 실패
 - [x] 로그아웃 → 세션 삭제
 
-**Integration Tests**
-
-- [ ] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
-- [ ] 로그인 후 /admin 접근 → 성공
-
 **완료 조건:** 관리자 인증 플로우 동작
 
-- Commits:
+- Commits: 0e062b8
 
 ---
 
@@ -327,6 +322,8 @@ bundle exec rails runner "puts 'OK'"
 
 **Tests**
 
+- [ ] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
+- [ ] 로그인 후 /admin 접근 → 성공
 - [ ] Race 정보 조회
 - [ ] Course 목록 조회 (capacity, 현재 신청 수 포함)
 - [ ] 대회/코스 정보 페이지 표시
