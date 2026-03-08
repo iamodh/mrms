@@ -18,7 +18,7 @@
 
 ## 배포 아키텍쳐
 
-<img width="734" height="797" alt="image" src="https://github.com/user-attachments/assets/a90a5d86-7abf-4850-8369-ab5343006e89" />
+<img width="725" height="818" alt="image" src="https://github.com/user-attachments/assets/4eb8d24d-e6e5-4789-8456-dc6678394671" />
 
 ## 요청 흐름 (사용자 → 서버 → 응답)
 
