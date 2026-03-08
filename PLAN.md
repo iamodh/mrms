@@ -272,6 +272,30 @@ bundle exec rails runner "puts 'OK'"
 
 ---
 
+### Milestone 9.5: 첫 배포 (Hetzner + Kamal)
+
+**목표:** M9 완료 시점(첫 사용자 테스트 가능)에서 Hetzner Cloud에 프로덕션 배포
+
+> 📖 TECHSPEC 섹션 4.2, 4.3 참조
+
+**보안 점검**
+
+- [x] `bundle exec brakeman -q --no-pager` 통과
+- [x] `bundle audit check --update` 통과
+
+**배포**
+
+- [x] Hetzner CX23 VPS 생성 및 SSH 접속 확인
+- [x] Kamal 배포 설정 (deploy.yml, Dockerfile, .kamal/secrets)
+- [x] 프로덕션 배포 성공 (IP 직접 접속, HTTP)
+- [x] 프로덕션에서 신청 → 조회 → 취소 플로우 동작 확인
+
+**완료 조건:** 프로덕션 환경에서 핵심 플로우 동작 확인
+
+- Commits:
+
+---
+
 ### Milestone 10: 관리자 인증
 
 **목표:** 환경변수 기반 관리자 로그인/로그아웃
@@ -280,18 +304,13 @@ bundle exec rails runner "puts 'OK'"
 
 **Unit Tests**
 
-- [ ] 올바른 ID/PW → 세션 생성
-- [ ] 잘못된 ID/PW → 로그인 실패
-- [ ] 로그아웃 → 세션 삭제
-
-**Integration Tests**
-
-- [ ] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
-- [ ] 로그인 후 /admin 접근 → 성공
+- [x] 올바른 ID/PW → 세션 생성
+- [x] 잘못된 ID/PW → 로그인 실패
+- [x] 로그아웃 → 세션 삭제
 
 **완료 조건:** 관리자 인증 플로우 동작
 
-- Commits:
+- Commits: 0e062b8
 
 ---
 
@@ -303,6 +322,8 @@ bundle exec rails runner "puts 'OK'"
 
 **Tests**
 
+- [ ] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
+- [ ] 로그인 후 /admin 접근 → 성공
 - [ ] Race 정보 조회
 - [ ] Course 목록 조회 (capacity, 현재 신청 수 포함)
 - [ ] 대회/코스 정보 페이지 표시
@@ -370,26 +391,25 @@ bundle exec rails runner "puts 'OK'"
 
 ---
 
-### Milestone 15: 배포 준비 & 프로덕션
+### Milestone 15: 최종 점검 & 프로덕션 마무리
 
-**목표:** Kamal 배포 설정 및 프로덕션 배포
+**목표:** 도메인 연결, SSL 적용, 프로덕션 시드 데이터 최종 확인
 
-> 📖 TECHSPEC 섹션 4.2 참조
+> 배포 파이프라인은 M9.5에서 구축 완료. 이 마일스톤은 최종 점검만 수행.
 
-**보안 점검**
+**도메인 & SSL**
 
-- [ ] `bundle exec brakeman -q --no-pager` 통과
-- [ ] `bundle audit check --update` 통과
+- [ ] 도메인 등록 및 DNS 설정
+- [ ] kamal-proxy Let's Encrypt SSL 적용 확인
 
-**배포**
+**최종 점검**
 
-- [ ] Kamal 설정 완료
-- [ ] 프로덕션 환경변수 설정
-- [ ] SSL 설정
-- [ ] 프로덕션 배포 성공
-- [ ] 전체 플로우 동작 확인 (신청 → 조회 → 취소)
+- [ ] `bundle exec brakeman -q --no-pager` 재실행
+- [ ] `bundle audit check --update` 재실행
+- [ ] 프로덕션 시드 데이터 확인 (실제 대회 정보)
+- [ ] 전체 플로우 최종 동작 확인 (HTTPS)
 
-**완료 조건:** 보안 점검 통과, 프로덕션 환경에서 전체 플로우 동작
+**완료 조건:** 도메인 + SSL 적용, 프로덕션 환경 최종 확인
 
 - Commits:
 
