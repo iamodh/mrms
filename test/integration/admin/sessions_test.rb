@@ -13,7 +13,7 @@ class Admin::SessionsTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_nil session[:admin]
-    assert_select "p", text: /아이디 또는 비밀번호가 올바르지 않습니다/
+    assert_select "div.flash-alert", text: /아이디 또는 비밀번호가 올바르지 않습니다/
   end
 
   test "logout destroys session" do
