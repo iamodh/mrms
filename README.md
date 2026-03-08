@@ -16,11 +16,9 @@
 ## AI Workflow
 <img width="8192" height="2850" alt="Marathon Application-2026-02-11-063615" src="https://github.com/user-attachments/assets/04250713-7a55-45fc-81ea-ca8fc92a2a39" />
 
-## 아키텍쳐
+## 배포 아키텍쳐
 
 <img width="734" height="797" alt="image" src="https://github.com/user-attachments/assets/a90a5d86-7abf-4850-8369-ab5343006e89" />
-
-# MRMS 배포 아키텍처 설명
 
 ## 요청 흐름 (사용자 → 서버 → 응답)
 
