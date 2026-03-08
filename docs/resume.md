@@ -265,13 +265,13 @@ SQLite 단일 서버 + Kamal 배포 환경에서 AWS 대신 Hetzner를 선택한
 
 ## 스펙 비교
 
-| | AWS 프리티어 (t2.micro) | Hetzner CX22 (~€4.5/월) |
+| | AWS 프리티어 (t2.micro) | Hetzner CX11 (~€3.29/월) |
 |---|---|---|
-| vCPU | 1 | 2 |
-| RAM | 1GB | 4GB |
-| 디스크 | 30GB EBS (IOPS 제한) | 40GB NVMe SSD |
+| vCPU | 1 | 1 |
+| RAM | 1GB | 2GB |
+| 디스크 | 30GB EBS (IOPS 제한) | 20GB NVMe SSD |
 | 트래픽 | 15GB/월 (초과 시 과금) | 20TB/월 |
-| 비용 | 1년 무료 → 이후 ~$8/월 | 처음부터 ~€4.5/월 |
+| 비용 | 1년 무료 → 이후 ~$8/월 | 처음부터 ~€3.29/월 |
 | 설정 | VPC, 보안그룹, IAM 필요 | SSH 키만 등록하면 끝 |
 | 한국 리전 | 있음 (서울) | 없음 (독일/핀란드/미국) |
 
