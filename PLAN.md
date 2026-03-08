@@ -286,9 +286,9 @@ bundle exec rails runner "puts 'OK'"
 **배포**
 
 - [x] Hetzner CX23 VPS 생성 및 SSH 접속 확인
-- [ ] Kamal 배포 설정 (deploy.yml, Dockerfile, .kamal/secrets)
-- [ ] 프로덕션 배포 성공 (IP 직접 접속, HTTP)
-- [ ] 프로덕션에서 신청 → 조회 → 취소 플로우 동작 확인
+- [x] Kamal 배포 설정 (deploy.yml, Dockerfile, .kamal/secrets)
+- [x] 프로덕션 배포 성공 (IP 직접 접속, HTTP)
+- [x] 프로덕션에서 신청 → 조회 → 취소 플로우 동작 확인
 
 **완료 조건:** 프로덕션 환경에서 핵심 플로우 동작 확인
 
