@@ -3,7 +3,7 @@
 <div class="race-info">
   <p>일시: <%= l @race.event_date, format: :long %></p>
   <p>장소: <%= @race.location %></p>
-  <p>신청 마감: <%= l @race.registration_deadline, format: :long %></p>
+  <p>신청 마감: <%= l @race.registration_deadline, format: :long %> <%= link_to "수정", edit_admin_race_path %></p>
 </div>
 
 <h2>코스 목록</h2>
@@ -17,6 +17,7 @@
       <th>잔여</th>
       <th>참가비</th>
       <th>출발 시간</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,7 @@
         <td><%= course.remaining_slots %></td>
         <td><%= number_with_delimiter(course.fee) %>원</td>
         <td><%= course.start_time.strftime("%H:%M") %></td>
+        <td><%= link_to "수정", edit_admin_course_path(course) %></td>
       </tr>
     <% end %>
   </tbody>
