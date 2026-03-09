@@ -408,22 +408,22 @@ SQLite 특화 문법에 의존하지 않도록 PostgreSQL 호환성을 고려해
 
 ### 5.2 관리자 영역
 
-| HTTP   | Path                      | Controller#Action           | 용도           |
-| ------ | ------------------------- | --------------------------- | -------------- |
-| GET    | `/admin/login`            | `admin/sessions#new`        | 로그인 폼      |
-| POST   | `/admin/login`            | `admin/sessions#create`     | 로그인 처리    |
-| DELETE | `/admin/logout`           | `admin/sessions#destroy`    | 로그아웃       |
-| GET    | `/admin`                  | `admin/registrations#index` | 신청자 목록    |
-| GET    | `/admin/courses`          | `admin/courses#index`       | 코스 목록      |
-| GET    | `/admin/courses/:id/edit` | `admin/courses#edit`        | 코스 수정 폼   |
-| PATCH  | `/admin/courses/:id`      | `admin/courses#update`      | 코스 수정 저장 |
+| HTTP   | Path                        | Controller#Action           | 용도                          |
+| ------ | --------------------------- | --------------------------- | ----------------------------- |
+| GET    | `/admin/login`              | `admin/sessions#new`        | 로그인 폼                     |
+| POST   | `/admin/login`              | `admin/sessions#create`     | 로그인 처리                   |
+| DELETE | `/admin/logout`             | `admin/sessions#destroy`    | 로그아웃                      |
+| GET    | `/admin`                    | `admin/dashboard#show`      | 대시보드 (대회 정보 + 코스 목록) |
+| GET    | `/admin/courses/:id/edit`   | `admin/courses#edit`        | 코스 수정 폼                  |
+| PATCH  | `/admin/courses/:id`        | `admin/courses#update`      | 코스 수정 저장                |
+| GET    | `/admin/registrations`      | `admin/registrations#index` | 신청자 목록 (M13)             |
 
 **흐름:**
 
-1. 로그인(`/admin/login`) → 세션 생성 → 신청자 목록으로 리다이렉트
-2. 신청자 목록(`/admin`)에서 정렬/필터링
-3. 코스 설정 클릭 → 코스 목록(`/admin/courses`)
-4. 코스 선택 → 수정 폼(`/admin/courses/:id/edit`) → 저장
+1. 로그인(`/admin/login`) → 세션 생성 → 대시보드로 리다이렉트
+2. 대시보드(`/admin`)에서 대회 정보 + 코스 목록 확인
+3. 코스 수정 클릭 → 수정 폼(`/admin/courses/:id/edit`) → 저장 → 대시보드로 리다이렉트
+4. 신청자 목록(`/admin/registrations`)에서 정렬/필터링 (M13)
 
 ---
 
