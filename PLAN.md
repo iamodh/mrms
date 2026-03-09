@@ -322,8 +322,8 @@ bundle exec rails runner "puts 'OK'"
 
 **Tests**
 
-- [ ] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
-- [ ] 로그인 후 /admin 접근 → 성공
+- [x] 비인증 상태로 /admin 접근 → 로그인 페이지 리다이렉트
+- [x] 로그인 후 /admin 접근 → 성공
 - [ ] Race 정보 조회
 - [ ] Course 목록 조회 (capacity, 현재 신청 수 포함)
 - [ ] 대회/코스 정보 페이지 표시
