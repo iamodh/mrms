@@ -1,0 +1,10 @@
+<h1>대회 설정 수정</h1>
+
+<%= form_with model: @race, url: admin_race_path do |f| %>
+  <div>
+    <%= f.label :registration_deadline, "신청 마감일" %>
+    <%= f.datetime_local_field :registration_deadline %>
+  </div>
+
+  <%= f.submit "저장" %>
+<% end %>

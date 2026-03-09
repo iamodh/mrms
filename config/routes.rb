@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     post "login", to: "sessions#create"
     delete "logout", to: "sessions#destroy"
     resources :courses, only: [ :edit, :update ]
+    resource :race, only: [ :edit, :update ]
     root "dashboard#show"
   end
 
