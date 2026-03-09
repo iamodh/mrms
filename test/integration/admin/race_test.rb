@@ -11,4 +11,21 @@ class Admin::RaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to admin_root_path
     assert_in_delta new_deadline, race.reload.registration_deadline, 1.second
   end
+
+  test "edit form displays current registration_deadline" do
+    admin_login
+
+    get edit_admin_race_path
+
+    assert_response :success
+    assert_select "input[name='race[registration_deadline]']"
+  end
+
+  test "dashboard has edit link for race settings" do
+    admin_login
+
+    get admin_root_path
+
+    assert_select "a[href='#{edit_admin_race_path}']"
+  end
 end
