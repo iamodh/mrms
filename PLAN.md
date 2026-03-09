@@ -344,11 +344,11 @@ bundle exec rails runner "puts 'OK'"
 
 - [x] Course capacity 업데이트 → DB 반영
 - [x] Race registration_deadline 업데이트 → DB 반영
-- [ ] 수정 폼 표시 및 저장 동작
+- [x] 수정 폼 표시 및 저장 동작
 
 **완료 조건:** 관리자가 정원/마감일 수정 가능
 
-- Commits:
+- Commits: 8867091, 9deb967, 8cbc570, fc16448, 2bad1da
 
 ---
 
