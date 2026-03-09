@@ -1,0 +1,10 @@
+<h1><%= @course.name %> 코스 수정</h1>
+
+<%= form_with model: @course, url: admin_course_path(@course) do |f| %>
+  <div>
+    <%= f.label :capacity, "정원" %>
+    <%= f.number_field :capacity %>
+  </div>
+
+  <%= f.submit "저장" %>
+<% end %>
