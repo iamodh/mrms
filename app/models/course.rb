@@ -5,8 +5,12 @@ class Course < ApplicationRecord
   belongs_to :race
   has_many :registrations, dependent: :destroy
 
+  def applied_count
+    registrations.where(status: "applied").count
+  end
+
   def remaining_slots
-    capacity - registrations.where(status: "applied").count
+    capacity - applied_count
   end
 
   def full?
