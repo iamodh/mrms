@@ -26,6 +26,6 @@ class CourseCapacityTest < ActiveSupport::TestCase
 
     assert_equal 1, results.count(:success)
     assert_equal 1, results.count(:capacity_exceeded)
-    assert_equal 1, course.registrations.where(status: "applied").count
+    assert_equal 1, course.reload.applied_count
   end
 end

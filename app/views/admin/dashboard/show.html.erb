@@ -1,3 +1,36 @@
-<h1>관리자 대시보드</h1>
+<h1><%= @race.name %></h1>
+
+<div class="race-info">
+  <p>일시: <%= l @race.event_date, format: :long %></p>
+  <p>장소: <%= @race.location %></p>
+  <p>신청 마감: <%= l @race.registration_deadline, format: :long %></p>
+</div>
+
+<h2>코스 목록</h2>
+
+<table class="courses-table">
+  <thead>
+    <tr>
+      <th>코스명</th>
+      <th>정원</th>
+      <th>신청 수</th>
+      <th>잔여</th>
+      <th>참가비</th>
+      <th>출발 시간</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr class="course-row">
+        <td><%= course.name %></td>
+        <td><%= course.capacity %></td>
+        <td><%= course.applied_count %></td>
+        <td><%= course.remaining_slots %></td>
+        <td><%= number_with_delimiter(course.fee) %>원</td>
+        <td><%= course.start_time.strftime("%H:%M") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= button_to "로그아웃", admin_logout_path, method: :delete %>
