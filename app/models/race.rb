@@ -4,6 +4,10 @@ class Race < ApplicationRecord
 
   scope :upcoming, -> { where("registration_deadline > ?", Time.current).order(:event_date) }
 
+  def self.latest
+    order(event_date: :desc).first
+  end
+
   def registration_closed?
     Time.current > registration_deadline
   end

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     delete "logout", to: "sessions#destroy"
     resources :courses, only: [ :edit, :update ]
     resource :race, only: [ :edit, :update ]
+    resources :registrations, only: [ :index ]
     root "dashboard#show"
   end
 

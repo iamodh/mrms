@@ -6,7 +6,7 @@
 
 1. **Test First**: 가장 첫 번째 미완료 테스트 케이스를 작성한다
 2. **Minimal Code**: 테스트를 통과시키는 최소한의 코드만 작성한다
-3. **Lint**: `bundle exec rubocop` 실행 (필요시 `-a`로 safe autocorrect)
+3. **Lint**: `bundle exec rubocop` 전체 실행 (파일 지정 금지, 필요시 `-a`로 safe autocorrect)
 4. **Run Tests**: `bundle exec rails test` 실행
 5. **Report & Wait**: 결과를 보고하고 사용자 확인을 기다린다
 
@@ -14,9 +14,8 @@
 
 ### `commit` - 완료 처리
 
-1. **Update PLAN.md**: 완료된 항목에 체크박스 표시
-2. **Update Commits**: 해당 마일스톤의 `- Commits:` 줄에 커밋 해시(short)를 추가한다 (기존 값이 있으면 쉼표로 이어붙임)
-3. **Commit**: PLAN.md 변경을 포함하여 커밋한다
+1. **코드 커밋**: 변경사항을 성격별로 나누어 커밋한다 (리팩토링, fixture, 기능 등)
+2. **PLAN 체크**: 완료된 항목에 체크박스 표시 + `- Commits:` 줄에 커밋 해시 추가 (매 항목마다 커밋하지 않고, 마일스톤 완료 시 또는 사용자 요청 시 한 번에 커밋)
 
 ### `verify` - 마일스톤 완료 후 수동 검증
 
@@ -330,7 +329,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 관리자 페이지에서 대회/코스 정보 확인 가능
 
-- Commits:
+- Commits: a797be8, 07b7586
 
 ---
 
@@ -360,15 +359,15 @@ bundle exec rails runner "puts 'OK'"
 
 **Tests**
 
-- [ ] 신청일 기준 정렬
-- [ ] 이름 기준 정렬
-- [ ] 코스별 필터
-- [ ] 상태별 필터 (applied, canceled, refunded)
-- [ ] 목록 페이지 표시, 정렬/필터 동작
+- [x] 신청일 기준 정렬
+- [x] 이름 기준 정렬
+- [x] 코스별 필터
+- [x] 상태별 필터 (applied, canceled, refunded)
+- [x] 목록 페이지 표시, 정렬/필터 동작
 
 **완료 조건:** 관리자가 신청자 목록 조회/정렬/필터 가능
 
-- Commits:
+- Commits: 96fd5c5, 6ff3a08, 1dc5535, eb546d9, dd56d45, abed13f, f024502
 
 ---
 
