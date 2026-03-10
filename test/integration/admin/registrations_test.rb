@@ -43,4 +43,26 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
     assert_select "td.registration-name", text: "이영희"
     assert_select "td.registration-name", text: "김달리", count: 0
   end
+
+  test "filter by status applied" do
+    get admin_registrations_path(status: "applied")
+
+    assert_select "tr.registration-row", count: 2
+    assert_select "td.registration-name", text: "홍길동"
+    assert_select "td.registration-name", text: "김달리"
+    assert_select "td.registration-name", text: "이영희", count: 0
+  end
+
+  test "filter by status canceled" do
+    get admin_registrations_path(status: "canceled")
+
+    assert_select "tr.registration-row", count: 1
+    assert_select "td.registration-name", text: "이영희"
+  end
+
+  test "no status filter shows all registrations" do
+    get admin_registrations_path
+
+    assert_select "tr.registration-row", count: 3
+  end
 end
