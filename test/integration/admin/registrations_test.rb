@@ -11,7 +11,7 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "tr.registration-row" do |rows|
       names = rows.map { |row| row.at_css("td.registration-name").text.strip }
-      assert_equal ["김달리", "이영희", "홍길동"], names
+      assert_equal [ "김달리", "이영희", "홍길동" ], names
     end
   end
 
@@ -20,7 +20,7 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
 
     assert_select "tr.registration-row" do |rows|
       names = rows.map { |row| row.at_css("td.registration-name").text.strip }
-      assert_equal ["김달리", "이영희", "홍길동"], names
+      assert_equal [ "김달리", "이영희", "홍길동" ], names
     end
   end
 
@@ -29,7 +29,7 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
 
     assert_select "tr.registration-row" do |rows|
       names = rows.map { |row| row.at_css("td.registration-name").text.strip }
-      assert_equal ["홍길동", "이영희", "김달리"], names
+      assert_equal [ "홍길동", "이영희", "김달리" ], names
     end
   end
 
