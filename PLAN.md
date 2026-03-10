@@ -360,7 +360,7 @@ bundle exec rails runner "puts 'OK'"
 
 **Tests**
 
-- [ ] 신청일 기준 정렬
+- [x] 신청일 기준 정렬
 - [ ] 이름 기준 정렬
 - [ ] 코스별 필터
 - [ ] 상태별 필터 (applied, canceled, refunded)
@@ -368,7 +368,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 관리자가 신청자 목록 조회/정렬/필터 가능
 
-- Commits:
+- Commits: 96fd5c5, 6ff3a08, 1dc5535
 
 ---
 
