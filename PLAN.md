@@ -330,7 +330,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 관리자 페이지에서 대회/코스 정보 확인 가능
 
-- Commits:
+- Commits: a797be8, 07b7586
 
 ---
 
