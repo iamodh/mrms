@@ -6,6 +6,8 @@ class Admin::RegistrationsController < Admin::BaseController
 
   def index
     order = SORT_OPTIONS.fetch(params[:sort], { created_at: :desc })
-    @registrations = @race.registrations.includes(:course).order(order)
+    scope = @race.registrations.includes(:course)
+    scope = scope.where(course_id: params[:course_id]) if params[:course_id].present?
+    @registrations = scope.order(order)
   end
 end

@@ -32,4 +32,15 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
       assert_equal ["홍길동", "이영희", "김달리"], names
     end
   end
+
+  test "filter by course" do
+    five_km = courses(:five_km)
+
+    get admin_registrations_path(course_id: five_km.id)
+
+    assert_select "tr.registration-row", count: 2
+    assert_select "td.registration-name", text: "홍길동"
+    assert_select "td.registration-name", text: "이영희"
+    assert_select "td.registration-name", text: "김달리", count: 0
+  end
 end
