@@ -6,7 +6,7 @@
 
 1. **Test First**: 가장 첫 번째 미완료 테스트 케이스를 작성한다
 2. **Minimal Code**: 테스트를 통과시키는 최소한의 코드만 작성한다
-3. **Lint**: `bundle exec rubocop` 실행 (필요시 `-a`로 safe autocorrect)
+3. **Lint**: `bundle exec rubocop` 전체 실행 (파일 지정 금지, 필요시 `-a`로 safe autocorrect)
 4. **Run Tests**: `bundle exec rails test` 실행
 5. **Report & Wait**: 결과를 보고하고 사용자 확인을 기다린다
 
