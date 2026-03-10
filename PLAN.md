@@ -362,12 +362,12 @@ bundle exec rails runner "puts 'OK'"
 - [x] 신청일 기준 정렬
 - [x] 이름 기준 정렬
 - [x] 코스별 필터
-- [ ] 상태별 필터 (applied, canceled, refunded)
-- [ ] 목록 페이지 표시, 정렬/필터 동작
+- [x] 상태별 필터 (applied, canceled, refunded)
+- [x] 목록 페이지 표시, 정렬/필터 동작
 
 **완료 조건:** 관리자가 신청자 목록 조회/정렬/필터 가능
 
-- Commits: 96fd5c5, 6ff3a08, 1dc5535, eb546d9, dd56d45
+- Commits: 96fd5c5, 6ff3a08, 1dc5535, eb546d9, dd56d45, abed13f, f024502
 
 ---
 
