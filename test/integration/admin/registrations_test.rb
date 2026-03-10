@@ -65,4 +65,19 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
 
     assert_select "tr.registration-row", count: 3
   end
+
+  test "page displays sort links and filter controls" do
+    get admin_registrations_path
+
+    assert_select "a[href*='sort=name_asc']"
+    assert_select "a[href*='sort=name_desc']"
+    assert_select "select.course-filter"
+    assert_select "select.status-filter"
+  end
+
+  test "dashboard has link to registrations page" do
+    get admin_root_path
+
+    assert_select "a[href='#{admin_registrations_path}']"
+  end
 end
