@@ -1,6 +1,6 @@
 <h1><%= @race.name %></h1>
 
-<div class="race-info">
+<div>
   <p>일시: <%= l @race.event_date, format: :long %></p>
   <p>장소: <%= @race.location %></p>
   <p>신청 마감: <%= l @race.registration_deadline, format: :long %> <%= link_to "수정", edit_admin_race_path %></p>
@@ -8,7 +8,7 @@
 
 <h2>코스 목록</h2>
 
-<table class="courses-table">
+<table>
   <thead>
     <tr>
       <th>코스명</th>
@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     <% @courses.each do |course| %>
-      <tr class="course-row">
+      <tr>
         <td><%= course.name %></td>
         <td><%= course.capacity %></td>
         <td><%= course.applied_count %></td>

@@ -22,7 +22,7 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
 
     five_km = courses(:five_km)
 
-    assert_select "[data-course-id='#{five_km.id}'] .remaining-slots",
+    assert_select "[data-course-id='#{five_km.id}'] p",
       text: /#{five_km.remaining_slots}/
   end
 
@@ -74,7 +74,7 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
-    assert_select ".field-errors", text: /이미 동일한 이름과 전화번호로 신청된 내역이 있습니다/
+    assert_select "ul li", text: /이미 동일한 이름과 전화번호로 신청된 내역이 있습니다/
   end
 
   test "registration fails when registration deadline has passed" do
@@ -113,7 +113,7 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
     assert_redirected_to course_registration_path(course, registration)
     follow_redirect!
     assert_response :success
-    assert_select ".confirmation-code", text: /#{registration.confirmation_code}/
+    assert_select "p", text: /#{registration.confirmation_code}/
   end
 
   test "submitting with missing fields re-renders form with validation errors and preserves input" do
@@ -128,6 +128,6 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
     assert_select "input[name='registration[name]'][value=?]", kept_name
-    assert_select ".field-errors"
+    assert_select "ul li"
   end
 end

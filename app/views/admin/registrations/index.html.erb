@@ -1,7 +1,7 @@
 <h1>신청자 목록</h1>
 
-<div class="filters">
-  <div class="sort-links">
+<div>
+  <div>
     정렬:
     <%= link_to "최신순", admin_registrations_path(sort: "newest", course_id: params[:course_id], status: params[:status]) %> |
     <%= link_to "이름 ▲", admin_registrations_path(sort: "name_asc", course_id: params[:course_id], status: params[:status]) %> |
@@ -16,7 +16,6 @@
         [["전체 코스", ""]] + @courses.map { |c| [c.name, c.id] },
         params[:course_id]
       ),
-      class: "course-filter",
       onchange: "this.form.submit()" %>
 
     <%= select_tag :status,
@@ -24,12 +23,11 @@
         [["전체 상태", ""], ["신청", "applied"], ["취소", "canceled"], ["환불", "refunded"]],
         params[:status]
       ),
-      class: "status-filter",
       onchange: "this.form.submit()" %>
   <% end %>
 </div>
 
-<table class="registrations-table">
+<table>
   <thead>
     <tr>
       <th>이름</th>
@@ -41,8 +39,8 @@
   </thead>
   <tbody>
     <% @registrations.each do |registration| %>
-      <tr class="registration-row">
-        <td class="registration-name"><%= registration.name %></td>
+      <tr>
+        <td><%= registration.name %></td>
         <td><%= registration.phone_number %></td>
         <td><%= registration.course.name %></td>
         <td><%= registration.status %></td>

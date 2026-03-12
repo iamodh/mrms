@@ -1,7 +1,7 @@
 <h1><%= @course.name %> 신청</h1>
 
 <% if @registration.errors.any? %>
-  <div class="field-errors">
+  <div>
     <ul>
       <% @registration.errors.full_messages.each do |message| %>
         <li><%= message %></li>
