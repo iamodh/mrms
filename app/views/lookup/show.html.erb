@@ -8,3 +8,5 @@
 <% if @registration.cancelable? %>
   <%= button_to "신청 취소", lookup_path, method: :delete, params: { confirmation_code: @registration.confirmation_code, name: @registration.name } %>
 <% end %>
+
+<%= link_to "홈으로 돌아가기", root_path %>
