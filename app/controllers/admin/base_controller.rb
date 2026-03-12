@@ -11,4 +11,8 @@ class Admin::BaseController < ApplicationController
   def set_race
     @race = Race.latest
   end
+
+  def render_not_found
+    render "admin/errors/not_found", status: :not_found
+  end
 end
