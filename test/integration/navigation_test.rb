@@ -38,6 +38,12 @@ class NavigationTest < ActionDispatch::IntegrationTest
     assert_select "a[href='#{root_path}']", "홈으로 돌아가기"
   end
 
+  test "registration form page has link to home" do
+    get new_course_registration_path(courses(:five_km))
+
+    assert_select "a[href='#{root_path}']", "홈으로 돌아가기"
+  end
+
   test "lookup form page has link to home" do
     get lookup_path
 
