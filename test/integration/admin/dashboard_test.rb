@@ -21,7 +21,7 @@ class Admin::DashboardTest < ActionDispatch::IntegrationTest
     get admin_root_path
 
     assert_select "h1", text: "서울마라톤 2026"
-    assert_select "p", text: /서울 여의도공원/
+    assert_select "dd", text: /서울 여의도공원/
   end
 
   test "dashboard displays course list with capacity and applied count" do

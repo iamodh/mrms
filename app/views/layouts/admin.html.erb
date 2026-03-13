@@ -12,18 +12,28 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <nav>
-      <div>
-        <%= link_to "대시보드", admin_root_path %>
-        <%= link_to "신청자 목록", admin_registrations_path %>
-      </div>
-      <div>
-        <%= link_to "로그아웃", admin_logout_path, data: { turbo_method: :delete } %>
+  <body class="bg-gray-50 text-gray-900">
+    <nav class="bg-white border-b border-gray-200">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="flex items-center justify-between h-14">
+          <div class="flex items-center gap-1">
+            <%= link_to "대시보드", admin_root_path,
+                  class: "px-3 py-2 text-sm font-medium rounded-md #{current_page?(admin_root_path) ? 'bg-primary-light text-primary-dark' : 'text-gray-600 hover:text-gray-900'}" %>
+            <%= link_to "신청자 목록", admin_registrations_path,
+                  class: "px-3 py-2 text-sm font-medium rounded-md #{current_page?(admin_registrations_path) ? 'bg-primary-light text-primary-dark' : 'text-gray-600 hover:text-gray-900'}" %>
+          </div>
+          <div>
+            <%= link_to "로그아웃", admin_logout_path,
+                  data: { turbo_method: :delete },
+                  class: "text-sm text-gray-500 hover:text-gray-700" %>
+          </div>
+        </div>
       </div>
     </nav>
 
-    <%= render "shared/flash" %>
-    <%= yield %>
+    <div class="max-w-5xl mx-auto px-4 py-6">
+      <%= render "shared/flash" %>
+      <%= yield %>
+    </div>
   </body>
 </html>

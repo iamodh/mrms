@@ -1,36 +1,52 @@
-<h1><%= @race.name %></h1>
+<h1 class="text-2xl font-bold mb-6"><%= @race.name %></h1>
 
-<div>
-  <p>일시: <%= l @race.event_date, format: :long %></p>
-  <p>장소: <%= @race.location %></p>
-  <p>신청 마감: <%= l @race.registration_deadline, format: :long %> <%= link_to "수정", edit_admin_race_path %></p>
+<div class="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+  <dl class="space-y-2 text-sm">
+    <div class="flex justify-between">
+      <dt class="text-gray-500">일시</dt>
+      <dd class="text-gray-900"><%= l @race.event_date, format: :long %></dd>
+    </div>
+    <div class="flex justify-between">
+      <dt class="text-gray-500">장소</dt>
+      <dd class="text-gray-900"><%= @race.location %></dd>
+    </div>
+    <div class="flex justify-between">
+      <dt class="text-gray-500">신청 마감</dt>
+      <dd class="text-gray-900">
+        <%= l @race.registration_deadline, format: :long %>
+        <%= link_to "수정", edit_admin_race_path, class: "text-primary hover:text-primary-hover text-xs ml-2" %>
+      </dd>
+    </div>
+  </dl>
 </div>
 
-<h2>코스 목록</h2>
+<h2 class="text-xl font-semibold mb-4">코스 목록</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>코스명</th>
-      <th>정원</th>
-      <th>신청 수</th>
-      <th>잔여</th>
-      <th>참가비</th>
-      <th>출발 시간</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @courses.each do |course| %>
-      <tr>
-        <td><%= course.name %></td>
-        <td><%= course.capacity %></td>
-        <td><%= course.applied_count %></td>
-        <td><%= course.remaining_slots %></td>
-        <td><%= number_with_delimiter(course.fee) %>원</td>
-        <td><%= course.start_time.strftime("%H:%M") %></td>
-        <td><%= link_to "수정", edit_admin_course_path(course) %></td>
+<div class="overflow-x-auto">
+  <table class="w-full text-sm">
+    <thead>
+      <tr class="border-b border-gray-200">
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">코스명</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">정원</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">신청 수</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">잔여</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">참가비</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">출발 시간</th>
+        <th class="py-3 px-3"></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr class="border-b border-gray-100 hover:bg-gray-50">
+          <td class="py-3 px-3"><%= course.name %></td>
+          <td class="py-3 px-3"><%= course.capacity %></td>
+          <td class="py-3 px-3"><%= course.applied_count %></td>
+          <td class="py-3 px-3"><%= course.remaining_slots %></td>
+          <td class="py-3 px-3"><%= number_with_delimiter(course.fee) %>원</td>
+          <td class="py-3 px-3"><%= course.start_time.strftime("%H:%M") %></td>
+          <td class="py-3 px-3"><%= link_to "수정", edit_admin_course_path(course), class: "text-primary hover:text-primary-hover" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

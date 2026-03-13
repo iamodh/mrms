@@ -69,8 +69,7 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
   test "page displays sort links and filter controls" do
     get admin_registrations_path
 
-    assert_select "a[href*='sort=name_asc']"
-    assert_select "a[href*='sort=name_desc']"
+    assert_select "select[name='sort']"
     assert_select "select[name='course_id']"
     assert_select "select[name='status']"
   end
