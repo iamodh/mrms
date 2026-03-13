@@ -1,7 +1,8 @@
 <% content_for(:title, "페이지를 찾을 수 없습니다") %>
 
-<div>
-  <h1>페이지를 찾을 수 없습니다</h1>
-  <p>요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
-  <p><%= link_to "홈으로 돌아가기", root_path %></p>
+<div class="text-center py-16">
+  <p class="text-6xl font-bold text-gray-200 mb-4">404</p>
+  <h1 class="text-2xl font-bold mb-2">페이지를 찾을 수 없습니다</h1>
+  <p class="text-sm text-gray-500 mb-6">요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
+  <%= link_to "홈으로 돌아가기", root_path, class: "text-primary hover:text-primary-hover font-medium text-sm" %>
 </div>
