@@ -15,5 +15,6 @@
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     padding-right: 2.5rem;
+    min-width: 7rem;
   }
 }
