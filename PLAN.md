@@ -403,11 +403,13 @@ bundle exec rails runner "puts 'OK'"
 
 **테스트 셀렉터 정리**
 
-- [ ] CSS 클래스 기반 assert_select를 태그+속성/텍스트 기반으로 전환
+- [x] CSS 클래스 기반 assert_select를 태그+속성/텍스트 기반으로 전환
 
 **UI 다듬기**
 
-- [ ] 레퍼런스 사이트 선정 + Claude Code에 톤 지정
+- [x] DESIGN.md 작성 (톤, 색상 토큰, 컴포넌트 패턴, 페이지별 가이드)
+- [ ] tailwindcss-rails gem 설치 + @theme 커스텀 색상/폰트 설정
+- [ ] 관리자 전용 레이아웃 분리 (admin.html.erb + 네비게이션 바)
 - [ ] 사용자 페이지 스타일링 (홈, 신청폼, 완료, 조회)
 - [ ] 관리자 페이지 스타일링 (대시보드, 목록, 수정폼)
 - [ ] 에러 페이지 스타일링 (404, 500)
