@@ -408,7 +408,7 @@ bundle exec rails runner "puts 'OK'"
 **UI 다듬기**
 
 - [x] DESIGN.md 작성 (톤, 색상 토큰, 컴포넌트 패턴, 페이지별 가이드)
-- [ ] tailwindcss-rails gem 설치 + @theme 커스텀 색상/폰트 설정
+- [x] tailwindcss-rails gem 설치 + @theme 커스텀 색상/폰트 설정
 - [ ] 관리자 전용 레이아웃 분리 (admin.html.erb + 네비게이션 바)
 - [ ] 사용자 페이지 스타일링 (홈, 신청폼, 완료, 조회)
 - [ ] 관리자 페이지 스타일링 (대시보드, 목록, 수정폼)
