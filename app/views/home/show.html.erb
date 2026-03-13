@@ -1,13 +1,21 @@
-<h1><%= @race.name %></h1>
+<div class="text-center py-6">
+  <h1 class="text-2xl font-bold"><%= @race.name %></h1>
+  <p class="text-gray-500 mt-1"><%= l @race.event_date, format: :long %> · <%= @race.location %></p>
+</div>
 
-<div>
+<div class="space-y-3">
   <% @courses.each do |course| %>
-    <div data-course-id="<%= course.id %>">
-      <h2><%= course.name %></h2>
-      <p>잔여: <%= course.remaining_slots %>명</p>
-      <%= link_to "신청하기", new_course_registration_path(course) %>
+    <div data-course-id="<%= course.id %>" class="bg-white rounded-xl border border-gray-200 p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-xl font-semibold"><%= course.name %></h2>
+        <span class="text-sm text-gray-500">잔여 <%= course.remaining_slots %>명</span>
+      </div>
+      <%= link_to "신청하기", new_course_registration_path(course),
+            class: "block w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 px-6 rounded-lg transition-colors text-center" %>
     </div>
   <% end %>
 </div>
 
-<%= link_to "신청 조회/취소", lookup_path %>
+<div class="text-center mt-6">
+  <%= link_to "신청 조회/취소", lookup_path, class: "text-gray-600 hover:text-gray-900 text-sm font-medium" %>
+</div>

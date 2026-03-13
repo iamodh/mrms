@@ -10,7 +10,7 @@ class LookupTest < ActionDispatch::IntegrationTest
     }
 
     assert_response :success
-    assert_select "p", text: /#{registration.confirmation_code}/
+    assert_select "dd", text: /#{registration.confirmation_code}/
   end
 
   test "lookup with invalid information shows error message" do

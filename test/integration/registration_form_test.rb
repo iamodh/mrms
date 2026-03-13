@@ -22,7 +22,7 @@ class RegistrationFormTest < ActionDispatch::IntegrationTest
 
     five_km = courses(:five_km)
 
-    assert_select "[data-course-id='#{five_km.id}'] p",
+    assert_select "[data-course-id='#{five_km.id}'] span",
       text: /#{five_km.remaining_slots}/
   end
 

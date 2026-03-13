@@ -1,8 +1,8 @@
-<h1><%= @course.name %> 신청</h1>
+<h1 class="text-2xl font-bold mb-6"><%= @course.name %> 신청</h1>
 
 <% if @registration.errors.any? %>
-  <div>
-    <ul>
+  <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm mb-4">
+    <ul class="list-disc list-inside space-y-1">
       <% @registration.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
@@ -11,34 +11,45 @@
 <% end %>
 
 <%= form_with model: @registration, url: course_registrations_path(@course) do |f| %>
-  <div>
-    <%= f.label :name, "이름" %>
-    <%= f.text_field :name, maxlength: 10 %>
-  </div>
+  <div class="space-y-4">
+    <div>
+      <%= f.label :name, "이름", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.text_field :name, maxlength: 10,
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary placeholder:text-gray-400" %>
+    </div>
 
-  <div>
-    <%= f.label :phone_number, "전화번호" %>
-    <%= f.text_field :phone_number, maxlength: 13 %>
-  </div>
+    <div>
+      <%= f.label :phone_number, "전화번호", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.text_field :phone_number, maxlength: 13,
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary placeholder:text-gray-400",
+            placeholder: "010-1234-5678" %>
+    </div>
 
-  <div>
-    <%= f.label :birth_date, "생년월일" %>
-    <%= f.date_field :birth_date %>
-  </div>
+    <div>
+      <%= f.label :birth_date, "생년월일", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.date_field :birth_date,
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" %>
+    </div>
 
-  <div>
-    <%= f.label :gender, "성별" %>
-    <%= f.select :gender, [["남성", "male"], ["여성", "female"]], prompt: "선택해주세요" %>
-  </div>
+    <div>
+      <%= f.label :gender, "성별", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.select :gender, [["남성", "male"], ["여성", "female"]], { prompt: "선택해주세요" },
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" %>
+    </div>
 
-  <div>
-    <%= f.label :address, "주소" %>
-    <%= f.text_area :address, maxlength: 30 %>
-  </div>
+    <div>
+      <%= f.label :address, "주소", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.text_area :address, maxlength: 30,
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary placeholder:text-gray-400" %>
+    </div>
 
-  <div>
-    <%= f.submit "신청하기" %>
+    <div class="mt-6">
+      <%= f.submit "신청하기",
+            class: "w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 px-6 rounded-lg transition-colors cursor-pointer" %>
+    </div>
   </div>
 <% end %>
 
-<%= link_to "홈으로 돌아가기", root_path %>
+<div class="text-center mt-4">
+  <%= link_to "홈으로 돌아가기", root_path, class: "text-gray-600 hover:text-gray-900 text-sm font-medium" %>
+</div>
