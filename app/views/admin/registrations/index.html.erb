@@ -20,7 +20,7 @@
 
     <%= select_tag :sort,
       options_for_select(
-        [["최신순", "newest"], ["이름 ▲", "name_asc"], ["이름 ▼", "name_desc"]],
+        [["최신순", "newest"], ["이름순", "name_asc"], ["이름역순", "name_desc"]],
         params[:sort]
       ),
       onchange: "this.form.submit()",
@@ -51,8 +51,9 @@
               when "canceled" then "bg-gray-100 text-gray-600"
               when "refunded" then "bg-red-50 text-red-700"
               end %>
+            <% status_label = { "applied" => "신청", "canceled" => "취소", "refunded" => "환불" } %>
             <span class="inline-block px-2 py-0.5 text-xs font-medium rounded-full <%= badge_class %>">
-              <%= registration.status %>
+              <%= status_label[registration.status] %>
             </span>
           </td>
           <td class="py-3 px-3 text-gray-500"><%= registration.created_at.strftime("%Y-%m-%d %H:%M") %></td>
