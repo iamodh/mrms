@@ -27,7 +27,7 @@ class RegistrationTest < ActiveSupport::TestCase
     registration = registrations(:hong_5km)
     registration.name = "가" * 11
     assert_not registration.valid?
-    assert_includes registration.errors[:name], "is too long (maximum is 10 characters)"
+    assert_includes registration.errors[:name], "10자 이하로 입력해 주세요"
   end
 
   test "rejects phone_number that is not exactly 11 digits" do
@@ -35,18 +35,18 @@ class RegistrationTest < ActiveSupport::TestCase
 
     registration.phone_number = "0" * 9
     assert_not registration.valid?
-    assert_includes registration.errors[:phone_number], "is the wrong length (should be 11 characters)"
+    assert_includes registration.errors[:phone_number], "11자여야 합니다"
 
     registration.phone_number = "0" * 12
     assert_not registration.valid?
-    assert_includes registration.errors[:phone_number], "is the wrong length (should be 11 characters)"
+    assert_includes registration.errors[:phone_number], "11자여야 합니다"
   end
 
   test "rejects address longer than 30 characters" do
     registration = registrations(:hong_5km)
     registration.address = "가" * 31
     assert_not registration.valid?
-    assert_includes registration.errors[:address], "is too long (maximum is 30 characters)"
+    assert_includes registration.errors[:address], "30자 이하로 입력해 주세요"
   end
 
   test "rejects duplicate registration with same race, name, and phone_number even on different course" do
@@ -120,10 +120,10 @@ class RegistrationTest < ActiveSupport::TestCase
     registration.gender = nil
     registration.address = nil
     assert_not registration.valid?
-    assert_includes registration.errors[:name], "can't be blank"
-    assert_includes registration.errors[:phone_number], "can't be blank"
-    assert_includes registration.errors[:birth_date], "can't be blank"
-    assert_includes registration.errors[:gender], "can't be blank"
-    assert_includes registration.errors[:address], "can't be blank"
+    assert_includes registration.errors[:name], "필수 항목입니다"
+    assert_includes registration.errors[:phone_number], "필수 항목입니다"
+    assert_includes registration.errors[:birth_date], "필수 항목입니다"
+    assert_includes registration.errors[:gender], "필수 항목입니다"
+    assert_includes registration.errors[:address], "필수 항목입니다"
   end
 end
