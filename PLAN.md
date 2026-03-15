@@ -429,6 +429,11 @@ bundle exec rails runner "puts 'OK'"
 - [x] brakeman 재실행
 - [x] bundler audit 재실행
 
+**QA용 시드 데이터**
+
+- [x] Faker gem 추가 (development group)
+- [x] seeds.rb에 Faker 기반 가짜 신청자 생성 추가
+
 **도메인 & SSL**
 
 - [ ] 도메인 등록 및 DNS 설정
