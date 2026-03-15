@@ -21,6 +21,10 @@ class Registration < ApplicationRecord
   validates :gender, presence: true
   validates :address, presence: true, length: { maximum: 30 }
 
+  def formatted_phone_number
+    phone_number.gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
+  end
+
   def cancelable?
     applied? && !race.registration_closed?
   end

@@ -43,7 +43,7 @@
       <% @registrations.each do |registration| %>
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="py-3 px-3"><%= registration.name %></td>
-          <td class="py-3 px-3"><%= registration.phone_number %></td>
+          <td class="py-3 px-3"><%= registration.formatted_phone_number %></td>
           <td class="py-3 px-3"><%= registration.course.name %></td>
           <td class="py-3 px-3">
             <% badge_class = case registration.status
