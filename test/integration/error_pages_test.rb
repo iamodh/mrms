@@ -15,6 +15,6 @@ class ErrorPagesTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
     assert_select "h1", "페이지를 찾을 수 없습니다"
-    assert_select "a[href='/admin']", "대시보드로 돌아가기"
+    assert_select "a[href='/admin']", "대시보드"
   end
 end

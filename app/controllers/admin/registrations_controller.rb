@@ -13,6 +13,6 @@ class Admin::RegistrationsController < Admin::BaseController
     scope = scope.where(course_id: params[:course_id]) if params[:course_id].present?
     scope = scope.where(status: params[:status]) if params[:status].in?(ALLOWED_STATUSES)
     @registrations = scope.order(order)
-    @courses = @race.courses.order(:start_time)
+    @courses = @race.courses.order(:id)
   end
 end

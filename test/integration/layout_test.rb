@@ -15,6 +15,6 @@ class LayoutTest < ActionDispatch::IntegrationTest
     }
 
     follow_redirect!
-    assert_select ".flash-alert", "선택하신 코스의 정원이 마감되었습니다."
+    assert_select "div", text: "선택하신 코스의 정원이 마감되었습니다."
   end
 end

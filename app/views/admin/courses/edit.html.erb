@@ -1,12 +1,26 @@
-<h1><%= @course.name %> 코스 수정</h1>
+<h1 class="text-2xl font-bold mb-6"><%= @course.name %> 코스 수정</h1>
 
-<%= form_with model: @course, url: admin_course_path(@course) do |f| %>
-  <div>
-    <%= f.label :capacity, "정원" %>
-    <%= f.number_field :capacity %>
+<% if @course.errors.any? %>
+  <div class="bg-red-50 border border-red-200 text-red-800 rounded-lg px-4 py-3 text-sm mb-4">
+    <ul class="list-disc list-inside space-y-1">
+      <% @course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   </div>
-
-  <%= f.submit "저장" %>
 <% end %>
 
-<%= link_to "대시보드로 돌아가기", admin_root_path %>
+<%= form_with model: @course, url: admin_course_path(@course) do |f| %>
+  <div class="space-y-4">
+    <div>
+      <%= f.label :capacity, "정원", class: "block text-sm font-medium text-gray-900 mb-1" %>
+      <%= f.number_field :capacity,
+            class: "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary" %>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "저장",
+            class: "w-full bg-primary hover:bg-primary-hover text-white font-medium py-3 px-6 rounded-lg transition-colors cursor-pointer" %>
+    </div>
+  </div>
+<% end %>

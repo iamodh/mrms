@@ -1,12 +1,35 @@
-<h1>신청 내역</h1>
+<h1 class="text-2xl font-bold mb-6">신청 내역</h1>
 
-<p class="confirmation-code"><%= @registration.confirmation_code %></p>
-<p>이름: <%= @registration.name %></p>
-<p>코스: <%= @registration.course.name %></p>
-<p>상태: <%= @registration.status %></p>
+<div class="bg-white rounded-xl border border-gray-200 p-5">
+  <dl class="space-y-2 text-sm">
+    <div class="flex justify-between">
+      <dt class="text-gray-500">확인 코드</dt>
+      <dd class="font-mono font-semibold text-gray-900"><%= @registration.confirmation_code %></dd>
+    </div>
+    <div class="flex justify-between">
+      <dt class="text-gray-500">이름</dt>
+      <dd class="text-gray-900"><%= @registration.name %></dd>
+    </div>
+    <div class="flex justify-between">
+      <dt class="text-gray-500">코스</dt>
+      <dd class="text-gray-900"><%= @registration.course.name %></dd>
+    </div>
+    <div class="flex justify-between">
+      <dt class="text-gray-500">상태</dt>
+      <dd class="text-gray-900"><%= @registration.status %></dd>
+    </div>
+  </dl>
+</div>
 
 <% if @registration.cancelable? %>
-  <%= button_to "신청 취소", lookup_path, method: :delete, params: { confirmation_code: @registration.confirmation_code, name: @registration.name } %>
+  <div class="mt-4">
+    <%= button_to "신청 취소", lookup_path,
+          method: :delete,
+          params: { confirmation_code: @registration.confirmation_code, name: @registration.name },
+          class: "w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-6 rounded-lg transition-colors cursor-pointer" %>
+  </div>
 <% end %>
 
-<%= link_to "홈으로 돌아가기", root_path %>
+<div class="text-center mt-4">
+  <%= link_to "홈으로 돌아가기", root_path, class: "text-gray-600 hover:text-gray-900 text-sm font-medium" %>
+</div>
