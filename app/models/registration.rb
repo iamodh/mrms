@@ -21,6 +21,12 @@ class Registration < ApplicationRecord
   validates :gender, presence: true
   validates :address, presence: true, length: { maximum: 30 }
 
+  STATUS_LABELS = { "applied" => "신청", "canceled" => "취소", "refunded" => "환불" }.freeze
+
+  def status_label
+    STATUS_LABELS[status]
+  end
+
   def formatted_phone_number
     phone_number.gsub(/(\d{3})(\d{4})(\d{4})/, '\1-\2-\3')
   end
