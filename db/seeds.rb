@@ -17,4 +17,15 @@ end
   end
 end
 
+course_5k = Course.find_by!(race_id: race.id, name: "5km")
+
+Registration.find_or_create_by!(race: race, name: "환불자", phone_number: "01099998888") do |r|
+  r.course = course_5k
+  r.birth_date = Date.new(1990, 5, 15)
+  r.gender = "male"
+  r.address = "서울시 강남구"
+  r.status = "refunded"
+  r.canceled_at = Time.current
+end
+
 puts "Seed complete: Race #{race.id}, #{Course.where(race_id: race.id).count} courses"
