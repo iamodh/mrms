@@ -28,4 +28,29 @@ Registration.find_or_create_by!(race: race, name: "환불자", phone_number: "01
   r.canceled_at = Time.current
 end
 
+if defined?(Faker)
+  Faker::Config.locale = "ko"
+
+  courses = Course.where(race_id: race.id).where("capacity > 0").to_a
+
+  50.times do |i|
+    course = courses.sample
+    name = Faker::Name.name
+    phone = "010#{rand(10_000_000..99_999_999)}"
+
+    Registration.find_or_create_by!(race: race, name: name, phone_number: phone) do |r|
+      r.course = course
+      r.birth_date = Faker::Date.birthday(min_age: 18, max_age: 65)
+      r.gender = %w[male female].sample
+      r.address = "#{Faker::Address.city} #{Faker::Address.street_name}"
+      if i % 10 == 9
+        r.status = "canceled"
+        r.canceled_at = Time.current
+      end
+    end
+  end
+
+  puts "Faker registrations: #{Registration.where(race_id: race.id).count} total"
+end
+
 puts "Seed complete: Race #{race.id}, #{Course.where(race_id: race.id).count} courses"
