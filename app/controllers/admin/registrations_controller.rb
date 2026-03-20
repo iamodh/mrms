@@ -14,5 +14,30 @@ class Admin::RegistrationsController < Admin::BaseController
     scope = scope.where(status: params[:status]) if params[:status].in?(ALLOWED_STATUSES)
     @registrations = scope.order(order)
     @courses = @race.courses.order(:id)
+
+    respond_to do |format|
+      format.html
+      format.xlsx { send_registrations_xlsx }
+    end
+  end
+
+  private
+
+  def send_registrations_xlsx
+    package = Axlsx::Package.new
+    package.workbook.add_worksheet(name: "신청자목록") do |sheet|
+      sheet.add_row %w[이름 생년월일 성별 전화번호 주소 코스 상태 확인코드 신청일]
+      @registrations.each do |r|
+        sheet.add_row [
+          r.name, r.birth_date.to_s, r.gender_label,
+          r.formatted_phone_number, r.address, r.course.name,
+          r.status_label, r.confirmation_code,
+          r.created_at.strftime("%Y-%m-%d %H:%M")
+        ]
+      end
+    end
+    send_data package.to_stream.read,
+      filename: "신청자목록_#{Date.current.strftime('%Y%m%d')}.xlsx",
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
 end

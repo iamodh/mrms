@@ -74,6 +74,13 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
     assert_select "select[name='status']"
   end
 
+  test "xlsx download returns success with correct content type" do
+    get admin_registrations_path(format: :xlsx)
+
+    assert_response :success
+    assert_equal "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", response.content_type
+  end
+
   test "dashboard has link to registrations page" do
     get admin_root_path
 
