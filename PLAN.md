@@ -467,7 +467,6 @@ bundle exec rails runner "puts 'OK'"
 **Tests**
 
 - [ ] xlsx 다운로드 요청 시 200 응답 + content-type 확인
-- [ ] 필터 적용 상태에서 다운로드 시 필터된 결과만 포함
 
 **완료 조건:** 관리자가 필터/정렬 유지한 채 엑셀 다운로드 가능
 
