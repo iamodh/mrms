@@ -100,7 +100,7 @@
 - 결제 연동 (토스페이먼츠 등 PG사 연동)
 - SMS/카카오톡 메시지 발송 기능
 - 카카오 소셜 로그인 (카카오톡 메시지 연동 시)
-- 신청자 목록 엑셀 다운로드
+- ~~신청자 목록 엑셀 다운로드~~ → 1단계 M17로 이동
 - 날짜별 부분 환불 정책 (예: D-30 100%, D-14 50%, D-7 환불불가)
 - 관리자 로그인 시도 제한 (brute force 방지)
 - 조회 API 보안 강화 (시도 제한, 실패 시 구체적 에러 미노출, 이상 패턴 탐지)
@@ -189,7 +189,7 @@
 - 날짜별 부분 환불 정책
 - 결제 연동 (토스페이먼츠)
 - 카카오 소셜 로그인
-- 엑셀 다운로드
+- ~~엑셀 다운로드~~ → 1단계 M17로 이동
 - 추가 보안 (2단계 보안 관점 참조)
 
 **현재 범위에서 제외**
@@ -255,7 +255,7 @@
 1. 결제 연동 (토스페이먼츠)
 2. 메시지 발송 (SMS/카카오톡)
 3. 카카오 소셜 로그인
-4. 엑셀 다운로드
+4. ~~엑셀 다운로드~~ → 1단계 M17로 이동
 5. 날짜별 부분 환불 정책
 6. 추가 보안 (2단계 보안 관점 참조)
 
@@ -820,6 +820,70 @@ end
 - 세션 쿠키: 서버가 `session[:admin] = true` 저장 → 브라우저가 쿠키로 보관 → 매 요청마다 자동 전송
 - `Admin::BaseController` 상속: 모든 Admin 컨트롤러에 `require_admin` 자동 적용
 - HTTPS 필수 (Kamal + Traefik + Let's Encrypt)
+
+---
+
+### 7.7 신청자 목록 엑셀 다운로드
+
+**Gem:** `caxlsx` (xlsx 생성)
+
+**방식:** 컨트롤러 private 메서드에서 `caxlsx`로 xlsx 바이너리를 생성하고 `send_data`로 응답.
+
+**라우트:**
+
+별도 라우트 없이 기존 `admin/registrations#index`에 format 분기 추가.
+
+```ruby
+# admin/registrations_controller.rb
+def index
+  # ... 기존 필터/정렬 로직 ...
+
+  respond_to do |format|
+    format.html
+    format.xlsx { send_registrations_xlsx }
+  end
+end
+
+private
+
+def send_registrations_xlsx
+  package = Axlsx::Package.new
+  package.workbook.add_worksheet(name: "신청자목록") do |sheet|
+    sheet.add_row %w[이름 생년월일 성별 전화번호 주소 코스 상태 확인코드 신청일]
+    @registrations.each do |r|
+      sheet.add_row [
+        r.name, r.birth_date.to_s, r.gender_label,
+        r.formatted_phone_number, r.address, r.course.name,
+        r.status_label, r.confirmation_code,
+        r.created_at.strftime("%Y-%m-%d %H:%M")
+      ]
+    end
+  end
+  send_data package.to_stream.read,
+    filename: "신청자목록_#{Date.current.strftime('%Y%m%d')}.xlsx",
+    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+end
+```
+
+**엑셀 컬럼:**
+
+| 컬럼 | 소스 |
+|------|------|
+| 이름 | `registration.name` |
+| 생년월일 | `registration.birth_date` (YYYY-MM-DD) |
+| 성별 | `registration.gender_label` (남/여) |
+| 전화번호 | `registration.formatted_phone_number` (010-1234-5678) |
+| 주소 | `registration.address` |
+| 코스 | `registration.course.name` |
+| 상태 | `registration.status_label` (신청/취소/환불) |
+| 확인코드 | `registration.confirmation_code` |
+| 신청일 | `registration.created_at` (YYYY-MM-DD HH:MM) |
+
+**현재 필터/정렬 유지:** 관리자가 목록에서 적용한 필터(코스별, 상태별)와 정렬이 엑셀에도 동일하게 반영.
+
+**파일명:** `신청자목록_YYYYMMDD.xlsx`
+
+**UI:** 신청자 목록 페이지에 "엑셀 다운로드" 버튼 추가. 현재 필터/정렬 파라미터를 그대로 전달.
 
 ---
 

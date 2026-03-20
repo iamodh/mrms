@@ -429,6 +429,11 @@ bundle exec rails runner "puts 'OK'"
 - [x] brakeman 재실행
 - [x] bundler audit 재실행
 
+**QA용 시드 데이터**
+
+- [x] Faker gem 추가 (development group)
+- [x] seeds.rb에 Faker 기반 가짜 신청자 생성 추가
+
 **도메인 & SSL**
 
 - [ ] 도메인 등록 및 DNS 설정
@@ -440,6 +445,30 @@ bundle exec rails runner "puts 'OK'"
 - [ ] 전체 플로우 최종 동작 확인 (HTTPS)
 
 **완료 조건:** 보안 점검 통과, 도메인 + SSL 적용, 프로덕션 환경 최종 확인
+
+- Commits:
+
+---
+
+### Milestone 17: 신청자 목록 엑셀 다운로드
+
+**목표:** 관리자가 신청자 목록을 엑셀(xlsx)로 다운로드
+
+> 📖 TECHSPEC 섹션 7.7 참조
+
+**구현**
+
+- [ ] caxlsx gem 추가
+- [ ] 기존 index 액션에 xlsx format 대응 (respond_to + send_data)
+- [ ] 엑셀 컬럼: 이름, 생년월일, 성별, 전화번호, 주소, 코스, 상태, 확인코드, 신청일
+- [ ] 현재 필터/정렬이 엑셀에도 동일 반영
+- [ ] 신청자 목록 페이지에 "엑셀 다운로드" 버튼 추가
+
+**Tests**
+
+- [ ] xlsx 다운로드 요청 시 200 응답 + content-type 확인
+
+**완료 조건:** 관리자가 필터/정렬 유지한 채 엑셀 다운로드 가능
 
 - Commits:
 
