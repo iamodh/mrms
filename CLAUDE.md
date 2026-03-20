@@ -10,6 +10,73 @@
 
 ---
 
+## WORKFLOW
+
+### `go` - 구현 사이클
+
+1. **Test First**: 가장 첫 번째 미완료 테스트 케이스를 작성한다
+2. **Minimal Code**: 테스트를 통과시키는 최소한의 코드만 작성한다
+3. **Lint**: `bundle exec rubocop` 전체 실행 (파일 지정 금지, 필요시 `-a`로 safe autocorrect)
+4. **Run Tests**: `bundle exec rails test` 실행
+5. **Report & Wait**: 결과를 보고하고 사용자 확인을 기다린다
+
+> ⚠️ 이후 자동 진행 금지. 사용자 피드백에 따라 수정하거나 `commit`을 기다린다.
+
+### `commit` - 완료 처리
+
+1. **코드 커밋**: 변경사항을 성격별로 나누어 커밋한다 (리팩토링, fixture, 기능 등)
+2. **PLAN 체크**: 완료된 항목에 체크박스 표시 + `- Commits:` 줄에 커밋 해시 추가 (매 항목마다 커밋하지 않고, 마일스톤 완료 시 또는 사용자 요청 시 한 번에 커밋)
+
+### `verify` - 마일스톤 완료 후 수동 검증
+
+마일스톤 완료 시 사용자가 직접 확인할 수 있는 검증 명령어를 제안한다.
+
+**제안 범위:**
+- `rails console`에서 실행할 수 있는 코드 스니펫 (모델 관계, 검증, 비즈니스 로직)
+- `rails dbconsole`에서 확인할 수 있는 스키마/데이터 쿼리
+- 브라우저에서 확인할 수 있는 URL과 기대 동작 (UI 마일스톤인 경우)
+- `bundle exec rubocop`, `bundle exec rails test` 등 CLI 명령어
+
+**규칙:**
+- `commit` 직전 또는 직후에 제안
+- 해당 마일스톤에서 구현한 기능에 한정 (이전 마일스톤 내용 반복 금지)
+- 복사-붙여넣기로 바로 실행 가능한 형태로 제공
+
+### 명령어
+
+| 명령어     | 동작                                 |
+| ---------- | ------------------------------------ |
+| `go`       | 구현 사이클 실행 후 사용자 확인 대기 |
+| `commit`   | 커밋 및 PLAN.md 체크박스 표시        |
+| `status`   | 현재 마일스톤 진행 테이블 + 요약 + 다음 항목 출력 |
+| `verify`   | 마일스톤 완료 후 수동 검증 제안      |
+| `refactor` | 테스트 통과 후 리팩토링 제안         |
+
+### 필수 실행 명령어
+
+```bash
+# 구현 사이클 (파일 편집/추가/삭제 후)
+bundle exec rubocop                # 확인 먼저, 필요시 -a로 safe autocorrect
+
+# 테스트 실행 (통과할 때까지 반복)
+bundle exec rails test
+
+# 마이그레이션 변경 시에만
+bundle exec rails db:migrate
+
+# 앱 정상 로드 확인
+bundle exec rails runner "puts 'OK'"
+```
+
+### 마일스톤 규칙
+
+- 하나의 마일스톤은 "동작"이 완성되는 단위, 단일 책임
+- Milestone 순서대로 진행
+- 이전 Milestone 완료 전 다음으로 진행 금지
+- **구현 방식은 TECHSPEC.md 참조** (CLAUDE.md의 참조 가이드 확인)
+
+---
+
 ## GOAL
 
 - `PLAN.md`에 정의된 현재 마일스톤을 구현한다
