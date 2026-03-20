@@ -37,7 +37,22 @@ class Admin::RegistrationsController < Admin::BaseController
       end
     end
     send_data package.to_stream.read,
-      filename: "신청자목록_#{Date.current.strftime('%Y%m%d')}.xlsx",
+      filename: "#{xlsx_filename}.xlsx",
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  end
+
+  def xlsx_filename
+    parts = [ @race.name, "신청자목록" ]
+    parts << Course.find(params[:course_id]).name if params[:course_id].present?
+    parts << Registration::STATUS_LABELS[params[:status]] if params[:status].in?(ALLOWED_STATUSES)
+    parts << xlsx_sort_label
+    parts << Date.current.strftime("%Y%m%d")
+    parts.join("_")
+  end
+
+  SORT_LABELS = { "newest" => "최신순", "name_asc" => "이름순", "name_desc" => "이름역순" }.freeze
+
+  def xlsx_sort_label
+    SORT_LABELS.fetch(params[:sort], "최신순")
   end
 end
