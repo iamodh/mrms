@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_09_000005) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_26_021631) do
   create_table "courses", force: :cascade do |t|
     t.integer "capacity", default: 0, null: false
     t.datetime "created_at", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_09_000005) do
     t.datetime "updated_at", null: false
     t.index ["confirmation_code"], name: "index_registrations_on_confirmation_code", unique: true
     t.index ["course_id"], name: "index_registrations_on_course_id"
-    t.index ["race_id", "name", "phone_number"], name: "index_registrations_on_race_id_and_name_and_phone_number", unique: true
+    t.index ["race_id", "name", "phone_number"], name: "index_registrations_on_race_id_and_name_and_phone_number", unique: true, where: "status = 'applied'"
     t.index ["race_id"], name: "index_registrations_on_race_id"
   end
 

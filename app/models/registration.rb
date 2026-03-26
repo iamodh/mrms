@@ -14,7 +14,8 @@ class Registration < ApplicationRecord
   normalizes :phone_number, with: ->(phone_number) { phone_number.gsub(/\D/, "") }
 
   validates :name, presence: true, length: { maximum: 10 }, uniqueness: {
-    scope: [ :race_id, :phone_number ]
+    scope: [ :race_id, :phone_number ],
+    conditions: -> { where(status: :applied) }
   }
   validates :phone_number, presence: true, length: { is: 11 }
   validates :birth_date, presence: true, comparison: { less_than_or_equal_to: -> { Date.today } }
