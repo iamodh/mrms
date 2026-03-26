@@ -1,72 +1,5 @@
 # MRMS (Marathon Registration Management System) PLAN.md
 
-## 🎯 핵심 구현 지침
-
-### `go` - 구현 사이클
-
-1. **Test First**: 가장 첫 번째 미완료 테스트 케이스를 작성한다
-2. **Minimal Code**: 테스트를 통과시키는 최소한의 코드만 작성한다
-3. **Lint**: `bundle exec rubocop` 전체 실행 (파일 지정 금지, 필요시 `-a`로 safe autocorrect)
-4. **Run Tests**: `bundle exec rails test` 실행
-5. **Report & Wait**: 결과를 보고하고 사용자 확인을 기다린다
-
-> ⚠️ 이후 자동 진행 금지. 사용자 피드백에 따라 수정하거나 `commit`을 기다린다.
-
-### `commit` - 완료 처리
-
-1. **코드 커밋**: 변경사항을 성격별로 나누어 커밋한다 (리팩토링, fixture, 기능 등)
-2. **PLAN 체크**: 완료된 항목에 체크박스 표시 + `- Commits:` 줄에 커밋 해시 추가 (매 항목마다 커밋하지 않고, 마일스톤 완료 시 또는 사용자 요청 시 한 번에 커밋)
-
-### `verify` - 마일스톤 완료 후 수동 검증
-
-마일스톤 완료 시 사용자가 직접 확인할 수 있는 검증 명령어를 제안한다.
-
-**제안 범위:**
-- `rails console`에서 실행할 수 있는 코드 스니펫 (모델 관계, 검증, 비즈니스 로직)
-- `rails dbconsole`에서 확인할 수 있는 스키마/데이터 쿼리
-- 브라우저에서 확인할 수 있는 URL과 기대 동작 (UI 마일스톤인 경우)
-- `bundle exec rubocop`, `bundle exec rails test` 등 CLI 명령어
-
-**규칙:**
-- `commit` 직전 또는 직후에 제안
-- 해당 마일스톤에서 구현한 기능에 한정 (이전 마일스톤 내용 반복 금지)
-- 복사-붙여넣기로 바로 실행 가능한 형태로 제공
-
-### 명령어
-
-| 명령어     | 동작                                 |
-| ---------- | ------------------------------------ |
-| `go`       | 구현 사이클 실행 후 사용자 확인 대기 |
-| `commit`   | 커밋 및 PLAN.md 체크박스 표시        |
-| `status`   | 현재 마일스톤 진행 테이블 + 요약 + 다음 항목 출력 |
-| `verify`   | 마일스톤 완료 후 수동 검증 제안      |
-| `refactor` | 테스트 통과 후 리팩토링 제안         |
-
-### 필수 실행 명령어
-
-```bash
-# 구현 사이클 (파일 편집/추가/삭제 후)
-bundle exec rubocop                # 확인 먼저, 필요시 -a로 safe autocorrect
-
-# 테스트 실행 (통과할 때까지 반복)
-bundle exec rails test
-
-# 마이그레이션 변경 시에만
-bundle exec rails db:migrate
-
-# 앱 정상 로드 확인
-bundle exec rails runner "puts 'OK'"
-```
-
-### 마일스톤 규칙
-
-- 하나의 마일스톤은 "동작"이 완성되는 단위, 단일 책임
-- Milestone 순서대로 진행
-- 이전 Milestone 완료 전 다음으로 진행 금지
-- **구현 방식은 TECHSPEC.md 참조** (CLAUDE.md의 참조 가이드 확인)
-
----
-
 ## 📋 구현 진행 상황
 
 ### Milestone 1: 프로젝트 초기화
@@ -291,7 +224,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 프로덕션 환경에서 핵심 플로우 동작 확인
 
-- Commits:
+- Commits: 935868c, 0ed5fa4
 
 ---
 
@@ -355,7 +288,7 @@ bundle exec rails runner "puts 'OK'"
 
 **목표:** 신청자 목록 조회, 정렬, 필터링
 
-> 📖 TECHSPEC 섹션 1.1 (관리자 기능) 참조
+> 📖 TECHSPEC 섹션 1.2 참조
 
 **Tests**
 
@@ -375,13 +308,14 @@ bundle exec rails runner "puts 'OK'"
 
 **목표:** 에러 페이지, 네비게이션 흐름 완성
 
-> 📖 TECHSPEC 섹션 1.1 (에러 처리) 참조
+> 📖 TECHSPEC 섹션 1.4 참조
 > 한국어 UX (enum 한글화, 날짜 포맷, 플래시 메시지 등)는 뷰 작업 중 발견 시 즉시 수정
 
 **에러 처리**
 
 - [x] 404 커스텀 페이지 (한국어, 존재하지 않는 코스/신청 접근 시)
 - [x] 500 커스텀 페이지 (한국어)
+
 **네비게이션 & 흐름**
 
 - [x] 관리자: 신청자 목록 → 대시보드 돌아가기 링크
@@ -391,7 +325,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 에러 한국어화, 페이지 간 자연스러운 이동
 
-- Commits:
+- Commits: d430fab, 0fc5e92, b45bd23
 
 ---
 
@@ -416,7 +350,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** UI 완성, QA 반영
 
-- Commits:
+- Commits: ae0ec32, dfef621, ffda762, f385fea, 1349403, 3a434a2, 688b13a, fa3cfaa
 
 ---
 
@@ -446,7 +380,7 @@ bundle exec rails runner "puts 'OK'"
 
 **완료 조건:** 보안 점검 통과, 도메인 + SSL 적용, 프로덕션 환경 최종 확인
 
-- Commits:
+- Commits: 9bde535, 58cfb7a
 
 ---
 
@@ -458,19 +392,19 @@ bundle exec rails runner "puts 'OK'"
 
 **구현**
 
-- [ ] caxlsx gem 추가
-- [ ] 기존 index 액션에 xlsx format 대응 (respond_to + send_data)
-- [ ] 엑셀 컬럼: 이름, 생년월일, 성별, 전화번호, 주소, 코스, 상태, 확인코드, 신청일
-- [ ] 현재 필터/정렬이 엑셀에도 동일 반영
-- [ ] 신청자 목록 페이지에 "엑셀 다운로드" 버튼 추가
+- [x] caxlsx gem 추가
+- [x] 기존 index 액션에 xlsx format 대응 (respond_to + send_data)
+- [x] 엑셀 컬럼: 이름, 생년월일, 성별, 전화번호, 주소, 코스, 상태, 확인코드, 신청일
+- [x] 현재 필터/정렬이 엑셀에도 동일 반영
+- [x] 신청자 목록 페이지에 "엑셀 다운로드" 버튼 추가
 
 **Tests**
 
-- [ ] xlsx 다운로드 요청 시 200 응답 + content-type 확인
+- [x] xlsx 다운로드 요청 시 200 응답 + content-type 확인
 
 **완료 조건:** 관리자가 필터/정렬 유지한 채 엑셀 다운로드 가능
 
-- Commits:
+- Commits: 1ba4568, 679817b
 
 ---
 
@@ -480,20 +414,8 @@ bundle exec rails runner "puts 'OK'"
 
 | 마일스톤 | 테스트                               | 상태 |
 | -------- | ------------------------------------ | ---- |
-| M5       | 정원 1명, 동시 신청 2건 → 1건만 성공 | [ ]  |
-| M6       | 동일 정보 동시 신청 → 1건만 성공     | [ ]  |
-| M7       | 마감 후 신청 차단                    | [ ]  |
-| M9       | 마감 후 취소 차단                    | [ ]  |
+| M5       | 정원 1명, 동시 신청 2건 → 1건만 성공 | [x]  |
+| M6       | 동일 정보 동시 신청 → 1건만 성공     | [x]  |
+| M7       | 마감 후 신청 차단                    | [x]  |
+| M9       | 마감 후 취소 차단                    | [x]  |
 
----
-
-## Issues
-
-> 구현 중 발견된 이슈나 TODO를 기록합니다.
-
-| #   | 마일스톤 | 내용 | 상태 |
-| --- | -------- | ---- | ---- |
-| 1   | M5, M6   | 동시성 테스트: `ActionDispatch::IntegrationTest`의 `post`는 `@response` 등 인스턴스 변수를 공유하여 thread-safe하지 않음. 모델 레벨에서 `Thread` + `ActiveRecord::Base.connection_pool.with_connection`으로 별도 커넥션을 확보하여 테스트한다 (TECHSPEC § 8.3 참조) | 적용 |
-| 2   | M5       | `save` vs `create!`: 컨트롤러에서 `create_registration!`(`create!` 사용)로 전환 시, 예외 발생하면 `@registration`에 할당이 안 되어 뷰 렌더링 실패. `rescue ActiveRecord::RecordInvalid => e`에서 `e.record`로 실패한 객체를 꺼내 `@registration`에 할당하여 해결 | 적용 |
-
----
