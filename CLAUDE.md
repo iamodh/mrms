@@ -44,9 +44,9 @@
 2. **Minimal Code**: 테스트를 통과시키는 최소한의 코드만 작성한다
 3. **Lint**: `bundle exec rubocop` 전체 실행 (파일 지정 금지, 필요시 `-a`로 safe autocorrect)
 4. **Run Tests**: `bundle exec rails test` 실행
-5. **Report & Wait**: 결과를 보고하고 사용자 확인을 기다린다
+5. **Report & Prompt**: 결과를 보고하고 `commit`할지 물어본다
 
-> ⚠️ 이후 자동 진행 금지. 사용자 피드백에 따라 수정하거나 `commit`을 기다린다.
+> ⚠️ 이후 자동 진행 금지. 사용자 피드백에 따라 수정하거나 `commit`을 진행한다.
 
 ### `commit` - 완료 처리
 

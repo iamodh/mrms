@@ -81,6 +81,13 @@ class Admin::RegistrationsTest < ActionDispatch::IntegrationTest
     assert_equal "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", response.content_type
   end
 
+  test "displays confirmation_code column" do
+    get admin_registrations_path
+
+    assert_select "th", text: "확인코드"
+    assert_select "td", text: registrations(:hong_5km).confirmation_code
+  end
+
   test "dashboard has link to registrations page" do
     get admin_root_path
 
