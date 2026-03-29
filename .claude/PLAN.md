@@ -13,8 +13,6 @@
 - [x] .gitignore 업데이트 (.env 추가)
 - [x] `rails runner "puts 'OK'"` 통과 확인
 
-> **Note:** Rails 8은 SQLite에서 WAL 모드 + IMMEDIATE 트랜잭션이 기본 적용됨. 1000명 규모에서 충분.
-
 **완료 조건:** `rubocop` 경고 없음, 앱 정상 로드
 
 - Commits: 9237578

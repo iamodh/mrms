@@ -214,6 +214,7 @@ max-w-5xl mx-auto px-4 py-6
         <th class="text-left py-3 px-3 font-semibold text-gray-900">이름</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">코스</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">상태</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">확인코드</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">신청일</th>
       </tr>
     </thead>
@@ -225,6 +226,7 @@ max-w-5xl mx-auto px-4 py-6
           <span class="inline-block px-2 py-0.5 text-xs font-medium rounded-full
             bg-green-50 text-green-700">신청완료</span>
         </td>
+        <td class="py-3 px-3 font-mono text-gray-900">AB12CD34</td>
         <td class="py-3 px-3 text-gray-500">2026-03-13</td>
       </tr>
     </tbody>
@@ -300,7 +302,7 @@ max-w-5xl mx-auto px-4 py-6
 
 ### 사용자 — 조회/취소
 
-- 확인 코드 + 이름 입력 폼
+- 이름 → 확인 코드 순서로 입력 폼
 - 조회 결과를 카드로 표시
 - 취소 버튼은 Danger 스타일, 확인 dialog 포함
 

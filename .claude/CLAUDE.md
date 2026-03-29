@@ -102,7 +102,7 @@ bundle exec rails runner "puts 'OK'"
 
 ---
 
-## TESTING GUIDELINES
+## TESTING
 
 > 코드 예제는 **TECHSPEC.md § 8.4** 참조
 
@@ -163,17 +163,9 @@ bundle exec rails runner "puts 'OK'"
 
 ---
 
-## PROJECT SPECIFIC
+## STACK
 
-### Tech Stack
-
-- **Framework:** Ruby on Rails 8.1.1
-- **Ruby:** 3.4.7
-- **Database:** SQLite (개발 및 프로덕션)
-- **Testing:** Minitest (Rails 기본)
-- **Frontend:** Hotwire (Turbo + Stimulus)
-- **Deployment:** Kamal + Docker
-- **Linter:** RuboCop
+> 기술 스택 상세는 **TECHSPEC.md § 4.1** 참조
 
 ### Coding Conventions
 
