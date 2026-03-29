@@ -39,7 +39,7 @@ end
 - 며칠에 걸쳐 분산되는 패턴이라 동시 경합이 거의 없음
 - WAL 모드로 읽기는 잠금 없이 처리됨
 
-밀리초 단위 선착순 경쟁이 생기면 PostgreSQL + Row Lock으로 전환한다. 전환 기준은 `decisions/002-sqlite.md` 참조.
+SQLite Write Lock이 걸리면 트랜잭션이 완료될 때까지 다른 모든 쓰기 요청이 대기한다. 밀리초 단위 선착순 경쟁이 생기면 병목이 되므로 PostgreSQL + Row Lock으로 전환한다. 전환 기준은 `decisions/002-sqlite.md` 참조.
 
 ---
 
