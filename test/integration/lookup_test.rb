@@ -1,6 +1,16 @@
 require "test_helper"
 
 class LookupTest < ActionDispatch::IntegrationTest
+  test "lookup form displays name field before confirmation_code field" do
+    get lookup_path
+
+    assert_response :success
+    assert_select "form" do |form|
+      labels = form.first.css("label").map { |l| l.text.strip }
+      assert_equal %w[이름 확인\ 코드], labels
+    end
+  end
+
   test "lookup with valid confirmation_code and name shows registration details" do
     registration = registrations(:hong_5km)
 

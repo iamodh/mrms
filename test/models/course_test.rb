@@ -41,6 +41,23 @@ class CourseTest < ActiveSupport::TestCase
     assert_not course.available?
   end
 
+  test "create_registration! allows re-registration after cancellation" do
+    canceled = registrations(:lee_5km_canceled)
+    course = canceled.course
+
+    new_registration = course.create_registration!(
+      name: canceled.name,
+      phone_number: canceled.phone_number,
+      birth_date: "1992-07-20",
+      gender: "female",
+      address: "경기도 성남시"
+    )
+
+    assert_not_equal canceled.id, new_registration.id
+    assert_equal "applied", new_registration.status
+    assert_equal "canceled", canceled.reload.status
+  end
+
   test "create_registration! raises RegistrationClosedError when deadline has passed" do
     course = courses(:closed_five_km)
 

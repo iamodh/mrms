@@ -39,13 +39,14 @@
 </div>
 
 <div class="overflow-x-auto">
-  <table class="w-full text-sm">
+  <table class="min-w-full text-sm whitespace-nowrap">
     <thead>
       <tr class="border-b border-gray-200">
         <th class="text-left py-3 px-3 font-semibold text-gray-900">이름</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">전화번호</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">코스</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">상태</th>
+        <th class="text-left py-3 px-3 font-semibold text-gray-900">확인코드</th>
         <th class="text-left py-3 px-3 font-semibold text-gray-900">신청일</th>
       </tr>
     </thead>
@@ -65,6 +66,7 @@
               <%= registration.status_label %>
             </span>
           </td>
+          <td class="py-3 px-3 font-mono text-xs text-gray-500"><%= registration.confirmation_code %></td>
           <td class="py-3 px-3 text-gray-500"><%= registration.created_at.strftime("%Y-%m-%d %H:%M") %></td>
         </tr>
       <% end %>
