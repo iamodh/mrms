@@ -4,21 +4,14 @@
 
 ---
 
-## 해결해야 할 문제
+## 1. 정원 초과 방지: lock! 사용
 
-### 정원 초과
+**예시:** 풀코스 정원 100명, 현재 99명 신청 완료. 홍길동과 김철수가 동시에 마지막 1자리에 신청한다.
 
-정원이 1명 남은 상태에서 2명이 동시에 신청하면, 둘 다 `SELECT COUNT`에서 여유 있음으로 판단하고 INSERT에 성공하여 정원을 초과한다.
+- lock 없이: 둘 다 `COUNT = 99 < 100`으로 판단 → 둘 다 INSERT 성공 → 101번째 신청 발생
+- lock 사용: 홍길동이 먼저 lock 획득 → INSERT 후 lock 해제 → 김철수가 lock 획득 → `COUNT = 100 >= 100` → 정원 초과로 실패
 
-### 중복 신청
-
-같은 사람이 브라우저 탭 2개로 동시에 제출하면, 둘 다 uniqueness validation의 `SELECT`에서 레코드 없음으로 판단하고 INSERT에 성공하여 중복 저장된다.
-
----
-
-## 방어 전략
-
-### 정원 초과 방지: 트랜잭션 + Row Lock
+Course 행을 잠가 같은 코스에 대한 동시 트랜잭션을 직렬화한다.
 
 ```ruby
 Course.transaction do
@@ -29,11 +22,51 @@ Course.transaction do
 end
 ```
 
-- `lock!`으로 같은 코스에 대한 동시 트랜잭션을 직렬화
 - 마감일 체크와 정원 체크를 동일한 트랜잭션 내에서 수행 — 모델이 자기 데이터를 스스로 보호
 - 컨트롤러의 `available?` 사전 체크는 UX를 위한 빠른 거부용이고, 모델이 최종 안전장치
 
-### 중복 신청 방지: 3단계 방어
+---
+
+## 2. SQLite lock의 한계와 PostgreSQL 대안
+
+**코드 의도 (PostgreSQL 기준)**
+
+`course.lock!`은 특정 Course 행에 Row Lock을 걸어 같은 코스에 대한 동시 트랜잭션만 직렬화하는 의도다. 다른 코스 신청은 동시에 처리 가능하다.
+
+**SQLite 실제 동작**
+
+SQLite는 Row Lock이 없어서 `course.lock!`을 호출하면 DB 파일 전체에 Write Lock이 걸린다. 코스와 무관하게 모든 신청이 직렬화된다.
+
+이 프로젝트에서는 문제가 없다:
+- 1,000명 규모에서 신청 트랜잭션은 수 밀리초면 완료
+- 며칠에 걸쳐 분산되는 패턴이라 동시 경합이 거의 없음
+- WAL 모드로 읽기는 잠금 없이 처리됨
+
+밀리초 단위 선착순 경쟁이 생기면 PostgreSQL + Row Lock으로 전환한다. 전환 기준은 `decisions/002-sqlite.md` 참조.
+
+---
+
+## 3. 중복 신청에서 SQLite lock의 동작
+
+**예시:** 홍길동이 브라우저 탭 2개에서 각각 풀코스와 하프코스를 동시에 제출했다. 1인 1신청 규칙이 있으므로 1건만 성공해야 한다.
+
+같은 사람이 동일 코스에 동시 2건을 제출하는 경우:
+
+- 두 요청이 같은 Course 행을 lock → 직렬화됨
+- 1번 요청이 먼저 처리되어 Registration INSERT → lock 해제
+- 2번 요청이 lock 획득 → 이미 Registration이 존재하므로 Model Validation이 차단
+
+이 경우엔 lock이 우연히 직렬화 효과를 준다.
+
+같은 사람이 **다른 코스(5km + 10km)에 동시 제출**하는 경우:
+
+- SQLite에서는 DB 전체 Write Lock이므로 실질적으로 직렬화됨
+- 하지만 PostgreSQL에서는 각각 다른 Course 행을 lock하므로 직렬화되지 않음
+- SQLite lock에만 의존할 수 없으므로 별도 방어선이 필요
+
+---
+
+## 4. 중복 신청 해결: 3단계 방어
 
 ```
 [요청] → Model Validation → DB Unique Index → Controller Rescue
@@ -50,7 +83,6 @@ validates :name, uniqueness: {
 ```
 
 - `SELECT`로 중복 여부를 확인하여 순차 요청은 100% 차단
-- `RecordInvalid` 발생 → 폼을 re-render하여 필드별 에러 메시지를 표시
 - 한계: SELECT와 INSERT 사이의 시간차로 동시 요청이 모두 통과할 수 있음
 
 **2단계 — DB Unique Index (동시 요청 차단)**
@@ -70,33 +102,8 @@ rescue ActiveRecord::RecordNotUnique
     alert: "이미 동일한 이름과 전화번호로 신청된 내역이 있습니다."
 ```
 
-- 2단계에서 발생한 `RecordNotUnique`를 잡지 않으면 500 에러로 노출됨
-- rescue를 추가하여 사용자에게 동일한 안내 메시지를 표시
-
-### 다른 코스 동시 신청 문제
-
-같은 사람이 5km, 10km에 동시 제출하는 경우:
-
-- `course.lock!`은 각각 다른 행을 잠그므로 직렬화되지 않음
-- 1단계 validation을 둘 다 통과할 수 있음
-- 이때 2단계 DB unique index + 3단계 rescue가 최종 안전망으로 작동
-
----
-
-## 테스트
-
-### 설계 원칙
-
-- 동시성 테스트는 모델 레벨(`ActiveSupport::TestCase`)에서 작성
-- `Thread` + `ActiveRecord::Base.connection_pool.with_connection`으로 별도 DB 커넥션 확보
-- 통합 테스트의 `post`는 `@response` 인스턴스 변수를 공유하여 thread-safe하지 않으므로 사용 금지
-
-### 검증 항목
-
-| 시나리오 | 입력 | 기대 결과 |
-|----------|------|-----------|
-| 정원 1명, 동시 신청 2건 | 서로 다른 사람 | 1건 성공, 1건 `CapacityExceededError` |
-| 동일 정보 동시 신청 2건 | 같은 사람 | 1건 성공, 1건 `RecordNotUnique` 또는 `RecordInvalid` |
+- `RecordNotUnique`를 잡지 않으면 500 에러로 노출됨
+- rescue로 사용자에게 동일한 안내 메시지를 표시
 
 ---
 
