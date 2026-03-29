@@ -1,15 +1,23 @@
 # 사용자 입력 기반 정렬의 SQL Injection 방지
 
-## 문제
+사용자 입력을 정렬 쿼리에 직접 사용하지 않고 화이트리스트로 방어하는 패턴.
 
-정렬 기능에서 `params[:sort]`를 `order()`에 직접 전달하면 SQL injection이 가능하다.
+---
+
+## 1. 문제: params를 order()에 직접 전달
+
+**예시:** 신청자 목록을 이름순으로 정렬할 때 `params[:sort]`를 그대로 쿼리에 넣으면 악의적인 SQL을 삽입할 수 있다.
 
 ```ruby
 # 위험: 사용자 입력을 그대로 쿼리에 사용
 @registrations = @race.registrations.order(params[:sort])
 ```
 
-## 해결: 화이트리스트 패턴
+`params[:sort]`에 `"name; DROP TABLE registrations"` 같은 값이 들어오면 의도치 않은 SQL이 실행된다.
+
+---
+
+## 2. 해결: 화이트리스트 패턴
 
 허용된 정렬 옵션만 해시로 정의하고, `fetch`로 매칭되지 않으면 기본값을 반환한다.
 
