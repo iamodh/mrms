@@ -1,6 +1,6 @@
 # 배포 아키텍쳐
 
-<img width="725" height="818" alt="image" src="https://github.com/user-attachments/assets/4eb8d24d-e6e5-4789-8456-dc6678394671" />
+![배포 아키텍쳐](../../deploy.svg)
 
 ## 요청 흐름 (사용자 → 서버 → 응답)
 
