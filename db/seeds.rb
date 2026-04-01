@@ -1,7 +1,7 @@
 race = Race.find_or_create_by!(name: "서울마라톤 2026") do |r|
-  r.event_date = DateTime.new(2026, 4, 12, 8, 0, 0)
+  r.event_date = DateTime.new(2026, 6, 14, 8, 0, 0)
   r.location = "서울 여의도공원"
-  r.registration_deadline = DateTime.new(2026, 3, 31, 23, 59, 59)
+  r.registration_deadline = DateTime.new(2026, 5, 31, 23, 59, 59)
 end
 
 [
