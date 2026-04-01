@@ -93,6 +93,8 @@ bin/dev
 
 `http://localhost:3000`에서 접속할 수 있습니다.
 
+관리자 페이지는 `http://localhost:3000/admin`에서 `.env`에 설정한 ID/PW로 로그인합니다.
+
 ### 테스트
 
 ```bash
