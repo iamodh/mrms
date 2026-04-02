@@ -2,6 +2,10 @@
 
 마라톤 대회 참가 접수 및 관리를 위한 Ruby on Rails 웹 애플리케이션입니다.
 
+## 프로젝트 제안서 
+
+https://drive.google.com/file/d/1XZnpHtxYyLed09pmEaUQbqfaZyZpGlmv/view?usp=sharing
+
 ## AI Workflow
 
 <img width="8192" height="2788" alt="Claude GUI Development-2026-04-02-034405" src="https://github.com/user-attachments/assets/9bdb3e18-df58-4960-afa1-279737b1b016" />
