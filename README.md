@@ -4,7 +4,7 @@
 
 ## AI Workflow
 
-![AI Workflow](ai-workflow.svg)
+<img width="8192" height="2788" alt="Claude GUI Development-2026-04-02-034405" src="https://github.com/user-attachments/assets/9bdb3e18-df58-4960-afa1-279737b1b016" />
 
 ## 주요 기능
 
